@@ -1,6 +1,9 @@
 package front.javax;
 
 import javax.swing.*;
+
+import console.Global;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -14,6 +17,7 @@ public class regra2 extends JFrame implements ActionListener, FacInterface {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle(Global.TITULO);
 
         JLabel background = new JLabel(new ImageIcon("resources/imagens/Regra2.jpg"));
 

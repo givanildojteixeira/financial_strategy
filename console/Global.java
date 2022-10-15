@@ -16,6 +16,7 @@ public class Global {
   public static String USUARIO = "";
   public static final int CONTA = 0;
   public static double SALDO = 0;
+  public static String TITULO = "Financial Stategy";
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();

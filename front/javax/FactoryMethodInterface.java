@@ -4,6 +4,7 @@ public class FactoryMethodInterface {
 
 	public static final String ABERTURA = "Abertura";
 	public static final String PRINCIPAL = "Principal";
+	public static final String LOGIN = "Login";
 	public static final String CREDITOS = "Creditos";
 	public static final String REGRA1 = "Regra1";
 	public static final String REGRA2 = "Regra2";
@@ -18,6 +19,8 @@ public class FactoryMethodInterface {
 				return new Abertura();
 			case "Principal":
 				return new Principal();
+			case "Login":
+				return new Login();
 			case "Creditos":
 				return new Creditos();
 			case "Regra1":

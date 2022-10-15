@@ -1,6 +1,9 @@
 package front.javax;
 
 import javax.swing.*;
+
+import console.Global;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -19,6 +22,8 @@ public class Abertura extends JFrame implements ActionListener, FacInterface {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setTitle(Global.TITULO);
+        
         JLabel background = new JLabel(new ImageIcon("resources/imagens/financial.jpg"));
         add(background);
 
@@ -47,7 +52,7 @@ public class Abertura extends JFrame implements ActionListener, FacInterface {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btPlay)
-            FactoryMethodInterface.getModel("Principal");
+            FactoryMethodInterface.getModel("Login");
         if (e.getSource() == btRegras)
             FactoryMethodInterface.getModel("Regra1");
         if (e.getSource() == btCreditos)

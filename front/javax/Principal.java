@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import console.Global;
+
 public class Principal extends JFrame implements ActionListener, FacInterface {
 
 	JPanel panel1 = new JPanel();
@@ -35,12 +37,12 @@ public class Principal extends JFrame implements ActionListener, FacInterface {
 		setSize(800, 600);
 		setLayout(null);
 		setVisible(true);
-		setTitle("Jogo Financeiro");
+		setTitle(Global.TITULO);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 		// cria os componentes
-		donoConta = new JLabel("GIVANILDO");
+		donoConta = new JLabel(Global.USUARIO);
 
 		bt1 = new JButton("Comprar um casa");
 		bt2 = new JButton("Vender uma casa");
@@ -57,6 +59,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface {
 		panel1.setLayout(new FlowLayout());
 		panel1.setBorder(BorderFactory.createTitledBorder("Investidor"));
 		panel1.setBounds(0, 0, 400, 80);
+		panel1.add(donoConta);
 		panel1.setBackground(Color.WHITE);
 
 		// panel2.setLayout(new BorderLayout());
@@ -89,7 +92,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface {
 		panel3.add(bt1);
 		panel3.add(bt2);
 		panel3.add(bt3);
-		panel2.add(donoConta);
+		
 		donoConta.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		add(panel1);

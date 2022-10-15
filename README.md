@@ -3,7 +3,6 @@
 ## Regras
 > É obrigatorio abrir uma conta corrente.
 > A cada final de ciclo todas as contas correntes recebem um recurso fixo.
-
 > Você pode fazer investimentos, sendo
 >    existem contas de investimento fixo.
 >        fundo de renda fixo

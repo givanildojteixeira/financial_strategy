@@ -1,6 +1,9 @@
 package front.javax;
 
 import javax.swing.*;
+
+import console.Global;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -14,6 +17,7 @@ public class regra5 extends JFrame implements ActionListener, FacInterface {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle(Global.TITULO);
 
         JLabel background = new JLabel(new ImageIcon("resources/imagens/Regra5.jpg"));
 
@@ -36,7 +40,7 @@ public class regra5 extends JFrame implements ActionListener, FacInterface {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btAvanco)
-            FactoryMethodInterface.getModel("Principal");
+            FactoryMethodInterface.getModel("Login");
         if (e.getSource() == btRetrocesso)
             FactoryMethodInterface.getModel("Regra4");
         this.dispose();
