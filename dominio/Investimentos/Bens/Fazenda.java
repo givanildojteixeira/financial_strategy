@@ -2,14 +2,14 @@ package dominio.Investimentos.Bens;
 
 import dominio.Investimentos.BensPrototype;
 
-public class AreaRural extends BensPrototype {
+public class Fazenda extends BensPrototype {
 	
 	@Override
 	public BensPrototype cloneBens() {
-		return new AreaRural();
+		return new Fazenda();
 	}
-	public AreaRural(){
-		setName("Area Rural");
+	public Fazenda(){
+		setName("Fazenda");
 		setValorCompra(5000);
 		setValorVenda(3000);
 		setRetorno(500);

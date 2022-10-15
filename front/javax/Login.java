@@ -59,7 +59,7 @@ public class Login extends JFrame implements ActionListener, FacInterface {
             if (user.isEmpty()) {
                 FactoryMethodInterface.getModel("login");
             } else {
-                Global.USUARIO = user.toUpperCase() ;
+                Global.USUARIO = user.toUpperCase();
                 FactoryMethodInterface.getModel("Principal");
             }
         }

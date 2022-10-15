@@ -1,6 +1,7 @@
 package dominio.Investimentos.Bens;
 
 import dominio.Investimentos.BensPrototype;
+import front.javax.Principal;
 
 public class Apartamento extends BensPrototype {
 	

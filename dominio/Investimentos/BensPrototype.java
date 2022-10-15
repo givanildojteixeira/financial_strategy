@@ -11,10 +11,10 @@ public abstract class BensPrototype {
 
 	public abstract BensPrototype cloneBens();
 	
-	public static final String APARTAMENTO = "1";
-	public static final String AREARURAL = "2";
-	public static final String CASA = "3";
-    public static final String COMERCIO = "4";
+	public static final String APARTAMENTO = "Apartamento";
+	public static final String FAZENDA = "Fazenda";
+	public static final String CASA = "Casa";
+    public static final String COMERCIO = "Comercio";
 
 	public String getName() {
 		return name;

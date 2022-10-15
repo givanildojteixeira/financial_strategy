@@ -15,7 +15,7 @@ public class BensCache {
 	public static void loadForms() {
 
 		forms.put(BensPrototype.APARTAMENTO, new Apartamento());
-		forms.put(BensPrototype.AREARURAL, new AreaRural());
+		forms.put(BensPrototype.FAZENDA, new Fazenda());
 		forms.put(BensPrototype.CASA, new Casa());
 		forms.put(BensPrototype.COMERCIO, new Comercio());
 	}

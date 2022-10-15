@@ -47,25 +47,26 @@ public class Operacoes {
 	}
 
 	// public void transferir(int contaOrigem, int contaDestino, double valor) {
-	// 	try {
-	// 		if (sacar(contaOrigem, valor, "Transferencia")) {
-	// 			depositar(contaDestino, valor, "Transferencia");
-	// 			System.out.println("Transferência de [" + contaOrigem + "] para [" + contaDestino + "] no valor de R$ "
-	// 					+ valor + " processada com sucesso!");
-	// 		} else {
-	// 			System.out.println("Não foi possivel efetuar a transferencia!");
-	// 		}
-	// 	} catch (Exception e) {
-	// 		System.out.println((e.getMessage()));
-	// 	}
+	// try {
+	// if (sacar(contaOrigem, valor, "Transferencia")) {
+	// depositar(contaDestino, valor, "Transferencia");
+	// System.out.println("Transferência de [" + contaOrigem + "] para [" +
+	// contaDestino + "] no valor de R$ "
+	// + valor + " processada com sucesso!");
+	// } else {
+	// System.out.println("Não foi possivel efetuar a transferencia!");
+	// }
+	// } catch (Exception e) {
+	// System.out.println((e.getMessage()));
+	// }
 	// }
 
 	public String sacar(double valor, String descricao) {
 		ContaProduct cliente = c.getConta(Global.USUARIO);
-		if (cliente.sacar(valor)==true){
+		if (cliente.sacar(valor) == true) {
 			b.movimento.add(new Movimentacao(cliente.getNumero(), "D", descricao, valor));
 			return "Saque efetuado com sucesso! Verifique seu saldo";
-		}else{
+		} else {
 			return "Saque não pode ser efetuado, verifique o seu saldo e tente novamente!";
 		}
 	}
@@ -120,6 +121,18 @@ public class Operacoes {
 
 	}
 
+	public double valorCompraBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getValorCompra();
+	}
+
+	public double valorVendaBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getValorVenda();
+	}
+
 	public boolean comprarBens(String bem) throws Exception {
 		BensCache.loadForms();
 		BensPrototype ben = BensCache.getForm(BensPrototype.CASA);
@@ -134,8 +147,8 @@ public class Operacoes {
 			case "Comercio":
 				ben = BensCache.getForm(BensPrototype.COMERCIO);
 				break;
-			case "AreaRural":
-				ben = BensCache.getForm(BensPrototype.AREARURAL);
+			case "Fazenda":
+				ben = BensCache.getForm(BensPrototype.FAZENDA);
 				break;
 		}
 
