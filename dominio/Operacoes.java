@@ -61,21 +61,20 @@ public class Operacoes {
 	// }
 	// }
 
-	public String sacar(double valor, String descricao) {
-		ContaProduct cliente = c.getConta(Global.USUARIO);
-		if (cliente.sacar(valor) == true) {
-			b.movimento.add(new Movimentacao(cliente.getNumero(), "D", descricao, valor));
-			return "Saque efetuado com sucesso! Verifique seu saldo";
+	public boolean sacar(double valor, String descricao) {
+		// ContaProduct cliente = c.getConta(Global.USUARIO);
+		if (c.getConta().sacar(valor) == true) {
+			b.movimento.add(new Movimentacao(c.getConta().getNumero(), "D", descricao, valor));
+			return true;
 		} else {
-			return "Saque não pode ser efetuado, verifique o seu saldo e tente novamente!";
+			return false;
 		}
 	}
 
-	public String depositar(double valor, String descricao) {
-		ContaProduct cliente = c.getConta(Global.USUARIO);
-		cliente.depositar(valor, descricao);
-		b.movimento.add(new Movimentacao(cliente.getNumero(), "C", descricao, valor));
-		return "Deposito efetuado com sucesso! Verifique seu saldo";
+	public boolean depositar(double valor, String descricao) {
+		c.getConta().depositar(valor);
+		b.movimento.add(new Movimentacao(c.getConta().getNumero(), "C", descricao, valor));
+		return true;
 	}
 
 	public String extrato(int nroConta) {
@@ -84,14 +83,72 @@ public class Operacoes {
 	}
 
 	public double saldoDaConta() {
-		ContaProduct cliente = c.getConta(Global.USUARIO);
-		return (double) cliente.getSaldo();
+		return c.getConta().getSaldo();
 	}
 
 	public double limiteDaConta() {
-		ContaProduct cliente = c.getConta(Global.USUARIO);
-		return (double) cliente.getLimite();
+		return c.getConta().getLimite();
 	}
+
+	// public void transferir(int contaOrigem, int contaDestino, double valor) {
+	// 	try {
+	// 		if (sacar(contaOrigem, valor, "Transferencia")) {
+	// 			depositar(contaDestino, valor, "Transferencia");
+	// 			System.out.println("Transferência de [" + contaOrigem + "] para [" + contaDestino + "] no valor de R$ "
+	// 					+ valor + " processada com sucesso!");
+	// 		} else {
+	// 			System.out.println("Não foi possivel efetuar a transferencia!");
+	// 		}
+	// 	} catch (Exception e) {
+	// 		System.out.println((e.getMessage()));
+	// 	}
+	// }
+
+	// public boolean sacar(int nroConta, double valor, String descricao) throws
+	// Exception {
+	// try {
+	// String cliente = c.getConta(nroConta);
+	// if (cliente.equals("")) {
+	// throw new Exception("Conta nao existe!");
+	// } else {
+	// System.out.println(c.getConta(cliente).sacar(valor, descricao));
+	// b.movimento.add(new Movimentacao(nroConta, "D", descricao, valor));
+	// return true;
+	// }
+	// } catch (Exception e) {
+	// System.out.println("Saque não efetuado:" + e.getMessage());
+	// return false;
+	// }
+	// }
+
+	// public void depositar(int nroConta, double valor, String descricao) throws Exception {
+	// 	try {
+	// 		String cliente = c.getConta(nroConta);
+	// 		if (cliente.equals(""))
+	// 			throw new Exception(("Conta nao existe!"));
+	// 		System.out.println(c.getConta(cliente).depositar(valor, descricao));
+	// 		b.movimento.add(new Movimentacao(nroConta, "C", descricao, valor));
+	// 	} catch (Exception e) {
+	// 		System.out.println("Saque não efetuado:" + e.getMessage());
+	// 	}
+	// }
+
+	// public void extrato(int nroConta) {
+	// 	try {
+	// 		String cliente = c.getConta(nroConta);
+	// 		if (cliente.equals(""))
+	// 			throw new Exception(("Conta nao existe!"));
+	// 		System.out.println(e.getExtrato(c.getConta(cliente)));
+	// 	} catch (Exception e) {
+	// 		System.out.println("Saque não efetuado:" + e.getMessage());
+	// 	}
+	// }
+
+	// public double saldoConta(int nroConta) {
+	// 	String cliente = c.getConta(nroConta);
+	// 	double saldo = c.getConta(cliente).getSaldo();
+	// 	return saldo;
+	// }
 
 	public void ciclo() throws Exception {
 		/*
@@ -101,7 +158,6 @@ public class Operacoes {
 		 */
 		System.out.println("Ciclo de contas Iniciado");
 		c.CicloContas();
-
 	}
 
 	public void pesquisaBens() {
@@ -118,7 +174,6 @@ public class Operacoes {
 		// BensCache.loadBens(BensPrototype.Apartamento, apartamento);
 		// bem = BensCache.getForm(BensPrototype.Apartamento);
 		// System.out.println(bem.getPesquisa());
-
 	}
 
 	public double valorCompraBem(String qual) {

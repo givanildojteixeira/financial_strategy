@@ -14,9 +14,6 @@ package console;
 */
 public class Global {
   public static String USUARIO = "";
-  public static final int CONTA = 0;
-  public static double SALDO = 0;
-  public static double LIMITE = 0;
   public static String TITULO = "Financial Stategy";
 
   public static class IdentificadorConta {
@@ -49,7 +46,25 @@ public class Global {
     public int novo() {
       return NroIdentificador += 1;
     }
-
   }
 
+  public static class Patrimonio {
+    private static final Patrimonio patrimonio = new Patrimonio();
+    private double valorPatrimonio = 0;
+
+    private Patrimonio() {
+    }
+
+    public static Patrimonio getInstance() {
+      return patrimonio;
+    }
+
+    public double deposita(double valor) {
+      return valorPatrimonio += valor;
+    }
+
+    public double saca(double valor) {
+      return valorPatrimonio -= valor;
+    }
+  }
 }

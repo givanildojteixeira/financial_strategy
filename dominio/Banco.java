@@ -47,14 +47,15 @@ public class Banco {
 		return ct += "-------------------------------------------------------------------------\n";
 	}
 
+
 	public boolean CicloContas() throws Exception {
-		for (String key : contas.keySet()) {
-			if (contas.get(key).getTipoAbreviado() == "[Pro]") {
-				contas.get(key).depositar(1100, "Salario");
-			} else if (contas.get(key).getTipoAbreviado() == "") {
-				contas.get(key).depositar(1000, "Salario");
-			}
-		}
+		// for (String key : contas.keySet()) {
+		// 	if (contas.get(key).getTipoAbreviado() == "[Pro]") {
+		// 		contas.get(key).depositar(1100, "Salario");
+		// 	} else if (contas.get(key).getTipoAbreviado() == "") {
+		// 		contas.get(key).depositar(1000, "Salario");
+		// 	}
+		// }
 		return true;
 	}
 

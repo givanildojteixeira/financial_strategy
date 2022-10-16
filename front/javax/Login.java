@@ -3,10 +3,13 @@ package front.javax;
 import javax.swing.*;
 
 import console.Global;
+import dominio.Operacoes;
+
 import java.awt.Color;
 import java.awt.event.*;
 
 public class Login extends JFrame implements ActionListener, FacInterface {
+    Operacoes o = new Operacoes();
 
     // Declara Componentes
     JPanel panel1 = new JPanel();
@@ -59,6 +62,9 @@ public class Login extends JFrame implements ActionListener, FacInterface {
             if (user.isEmpty()) {
                 FactoryMethodInterface.getModel("login");
             } else {
+                // o.CriarConta(user.toUpperCase(), "");
+                // System.out.println(o.saldoDaConta());
+                // System.out.println(o.limiteDaConta());
                 Global.USUARIO = user.toUpperCase();
                 FactoryMethodInterface.getModel("Principal");
             }

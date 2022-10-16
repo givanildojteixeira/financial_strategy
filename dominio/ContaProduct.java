@@ -88,15 +88,12 @@ public class ContaProduct {
 				+ "limite=  " + limite + ", especial=" + especial + "]\n";
 	}
 
-	public String depositar(double valor, String descricao) {
+	public boolean depositar(double valor) {
 		if (valor > 0) {
-			if (descricao.equals(""))
-				descricao = "Depósito";
 			saldo += valor;
-			return "Conta: [" + getNumero() + "] depósito no valor de R$ " + valor + " processado com sucesso!";
-
+			return true;
 		} else {
-			return "Não foi possível depositar. Esse valor não é válido.";
+			return false;
 		}
 	}
 

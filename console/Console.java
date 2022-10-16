@@ -18,6 +18,9 @@ public class Console {
                 FactoryMethodInterface.getModel("Abertura");
             }
         });
+        // simulador();
+
+
     }
 
     public void vintage() throws Exception {
@@ -99,9 +102,8 @@ public class Console {
         o.CriarConta("Lucas", "Administrador");
 
         o.ListaContas();
-
-        o.depositar( 100, "");
-        o.depositar( 10000, "");
+        System.out.println(o.depositar( 100, ""));
+        System.out.println(o.depositar( 10000, ""));
         o.ListaContas();
         o.sacar(40000, "");
 
@@ -113,7 +115,7 @@ public class Console {
 
         o.ciclo();
         o.ListaContas();
-        o.extrato(1);
+        // o.extrato(1);
 
         // o.PesquisaBens();
 
