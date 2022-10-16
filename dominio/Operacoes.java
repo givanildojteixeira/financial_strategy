@@ -23,8 +23,16 @@ public class Operacoes {
 		Connector.gravar(chave, valor);
 	}
 
+	public void GravarDBValor(String chave, Double valor) {
+		Connector.gravar(chave, String.valueOf(valor));
+	}
+
 	public String leDB(String chave) {
 		return Connector.le(chave);
+	}
+
+	public double leDBValor(String chave) {
+		return Double.parseDouble (Connector.le(chave));
 	}
 
 	public void CriarConta(String cliente, String tipo) {
@@ -45,21 +53,6 @@ public class Operacoes {
 	public void ListaContas() {
 		System.out.println(c.listaContas());
 	}
-
-	// public void transferir(int contaOrigem, int contaDestino, double valor) {
-	// try {
-	// if (sacar(contaOrigem, valor, "Transferencia")) {
-	// depositar(contaDestino, valor, "Transferencia");
-	// System.out.println("Transferência de [" + contaOrigem + "] para [" +
-	// contaDestino + "] no valor de R$ "
-	// + valor + " processada com sucesso!");
-	// } else {
-	// System.out.println("Não foi possivel efetuar a transferencia!");
-	// }
-	// } catch (Exception e) {
-	// System.out.println((e.getMessage()));
-	// }
-	// }
 
 	public boolean sacar(double valor, String descricao) {
 		// ContaProduct cliente = c.getConta(Global.USUARIO);
@@ -84,6 +77,12 @@ public class Operacoes {
 
 	public double saldoDaConta() {
 		return c.getConta().getSaldo();
+	}
+	public void gravaSaldoConta(double v){
+		c.getConta().setSaldo(v);
+	}
+	public void gravaLimiteConta(double v){
+		c.getConta().setLimite(v);
 	}
 
 	public double limiteDaConta() {

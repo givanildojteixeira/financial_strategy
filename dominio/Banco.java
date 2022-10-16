@@ -10,12 +10,13 @@ public class Banco {
 	ArrayList<Movimentacao> movimento = new ArrayList<Movimentacao>();
 	ArrayList<BensPrototype> bens = new ArrayList<BensPrototype>();
 	ArrayList<BensPrototype> aplicacoes = new ArrayList<BensPrototype>();
-
+	Ferramentas f = new Ferramentas();
 	public Banco() {
 	}
 
 	public void insereConta(ContaProduct conta) {
 		contas.put(conta.getNome(), conta);
+		
 	}
 
 	public static ContaProduct getConta(String nome) {
@@ -41,8 +42,8 @@ public class Banco {
 		for (String key : contas.keySet()) {
 			ct += String.format("|%03d|",contas.get(key).getNumero()) + " - " + 
             String.format("%-20s", contas.get(key).getTipoAbreviado() +  contas.get(key).getNome() ) +
-            " - Saldo R$ " + Ferramentas.cMB(contas.get(key).getSaldo()) + 
-            " - Limite R$ " + Ferramentas.cMB(contas.get(key).getLimite()) + "\n";
+            " - Saldo R$ " + f.cMB(contas.get(key).getSaldo()) + 
+            " - Limite R$ " + f.cMB(contas.get(key).getLimite()) + "\n";
 		}
 		return ct += "-------------------------------------------------------------------------\n";
 	}

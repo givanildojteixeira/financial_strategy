@@ -4,6 +4,7 @@ import console.Ferramentas;
 import dominio.ContaProduct;
 
 public class Extratos {
+	Ferramentas f = new Ferramentas();
 
 	public String getExtrato(ContaProduct contaProduct) {
 
@@ -23,8 +24,8 @@ public class Extratos {
 		extrato += "-------------------------------\n";
 		extrato += "Descrição        | Valor (R$)\n";
 		// extrato += "-------------------------------\n";
-		extrato += "Saldo            | R$" + Ferramentas.cMB(contaProduct.getSaldo()) + "\n";
-		extrato += "Limite           | R$" + Ferramentas.cMB(contaProduct.getLimite()) + "\n";
+		extrato += "Saldo            | R$" + f.cMB(contaProduct.getSaldo()) + "\n";
+		extrato += "Limite           | R$" + f.cMB(contaProduct.getLimite()) + "\n";
 		// extrato += "Limite | R$" + converteMoedaBrasil(getSaldoComLimite() -
 		// getSaldo()) + "\n";
 		// extrato += "Saldo com Limite | R$" + converteMoedaBrasil(getSaldoComLimite())

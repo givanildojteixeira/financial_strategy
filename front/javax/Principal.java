@@ -35,7 +35,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	Ferramentas f = new Ferramentas();
 	// Declara Componentes
 	JButton bt1, bt2, bt3;
-	JLabel investidor, saldo, limite, sub1, sub2;
+	JLabel investidor, saldo, limite, patrimonio, sub1, sub2;
 	JTextArea text = new JTextArea();
 	JLabel casa = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
 	JLabel apartamento = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
@@ -53,8 +53,22 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
 
 	Principal() {
+		// criação ou atualizaçao da conta
 		o.CriarConta(Global.USUARIO, "");
-		
+		o.ConectarDB("");
+		if (o.leDB("Usuario").equals(Global.USUARIO)) {
+			// encontrei o nome gravado no banco, entao carrego os dados
+			Double s = o.leDBValor(Global.USUARIO + "-s");
+			o.gravaSaldoConta(s);
+			Double l = o.leDBValor(Global.USUARIO + "-l");
+			o.gravaLimiteConta(l);
+		} else {
+			// ops, é usuario novo, gravo os dados iniciais
+			o.GravarDB("Usuario", Global.USUARIO);
+			o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
+			o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
+		}
+
 		setSize(800, 600);
 		setLayout(null);
 		setVisible(true);
@@ -63,8 +77,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		setBackground(Color.WHITE);
 		setLocationRelativeTo(null);
 		// cria os componentes
-
-
 
 		sub1 = new JLabel("Bens de Patrimonio");
 		sub1.setFont(new Font("Serif", Font.BOLD, 20));
@@ -103,7 +115,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		investidor.setFont(new Font("Serif", Font.BOLD, 30));
 		investidor.setAlignmentX(3);
 		panel1.add(investidor);
-		
+
 		// panel2
 		panel2.setBorder(BorderFactory.createTitledBorder("Saldo da Conta"));
 		panel2.setBounds(301, 0, 480, 80);
@@ -111,20 +123,24 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		saldo = new JLabel();
 		saldo.setAlignmentX(3);
 		saldo.setFont(new Font("Serif", Font.BOLD, 20));
-		o.depositar(100, "compra");
-		o.saldoDaConta();
-		saldo.setText("Saldo R$ " + String.format("%.2f", o.saldoDaConta()));
+		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
+		patrimonio = new JLabel();
+		patrimonio.setAlignmentX(3);
+		patrimonio.setFont(new Font("Serif", Font.BOLD, 20));
+		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite = new JLabel();
 		limite.setAlignmentX(3);
-		limite.setFont(new Font("Serif", Font.BOLD, 20));
-		limite.setText(" |  Limite R$ " + String.format("%.2f", o.limiteDaConta()));
+		limite.setFont(new Font("Serif", Font.BOLD, 15));
+		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
+		limite.setForeground(Color.BLUE);
 		panel2.add(saldo);
+		panel2.add(patrimonio);
 		panel2.add(limite);
 
 		// panel3
 		panel3.setLayout(null);
 		panel3.setBorder(BorderFactory.createTitledBorder("Negociações"));
-		panel3.setBounds(0, 82, 400, 400);
+		panel3.setBounds(0, 82, 400, 300);
 		panel3.setBackground(Color.WHITE);
 		casa.setBounds(0, 40, 100, 100);
 		apartamento.setBounds(90, 40, 100, 100);
@@ -147,8 +163,8 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel3.add(frenda);
 		panel3.add(poupan);
 
-
-		//panel4
+		// panel4
+		JLabel lblCasa, lblComercio, lblApartamento, lblFazenda;
 		panel4.setLayout(null);
 		panel4.setBorder(BorderFactory.createTitledBorder("Meu Patrimônio"));
 		panel4.setBounds(401, 82, 380, 200);
@@ -157,26 +173,47 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		apartamentoM.setBounds(8, 55, 60, 60);
 		comercioM.setBounds(14, 105, 50, 50);
 		fazendaM.setBounds(5, 135, 80, 80);
+		lblCasa = new JLabel();
+		lblCasa.setBounds(75, 33, 400, 20);
+		lblCasa.setFont(new Font("Serif", Font.BOLD, 15));
+		lblCasa.setText("Você ainda não adquiriu essa propriedade");
+		lblCasa.setForeground(Color.GRAY);
+		lblApartamento = new JLabel();
+		lblApartamento.setBounds(75, 75, 400, 20);
+		lblApartamento.setFont(new Font("Serif", Font.BOLD, 15));
+		lblApartamento.setText("Você ainda não adquiriu essa propriedade");
+		lblApartamento.setForeground(Color.GRAY);
+		lblComercio = new JLabel();
+		lblComercio.setBounds(75, 120, 400, 20);
+		lblComercio.setFont(new Font("Serif", Font.BOLD, 15));
+		lblComercio.setText("Você ainda não adquiriu essa propriedade");
+		lblComercio.setForeground(Color.GRAY);
+		lblFazenda = new JLabel();
+		lblFazenda.setBounds(75, 165, 400, 20);
+		lblFazenda.setFont(new Font("Serif", Font.BOLD, 15));
+		lblFazenda.setText("Você ainda não adquiriu essa propriedade");
+		lblFazenda.setForeground(Color.GRAY);
 		panel4.add(casaM);
+		panel4.add(lblCasa);
 		panel4.add(comercioM);
+		panel4.add(lblComercio);
 		panel4.add(apartamentoM);
+		panel4.add(lblApartamento);
 		panel4.add(fazendaM);
+		panel4.add(lblFazenda);
 
-		
-		//panel5
+		// panel5
 		panel5.setLayout(new BorderLayout());
 		panel5.setBorder(BorderFactory.createTitledBorder("Minhas Aplicações"));
 		panel5.setBounds(401, 282, 380, 200);
 		panel5.setBackground(Color.WHITE);
 
-		
-		//panel6
-		panel6.setLayout(new BorderLayout());
+		// panel6
+		panel6.setLayout(null);
 		panel6.setBorder(BorderFactory.createTitledBorder("Mensagem"));
-		panel6.setBounds(0, 480, 600, 80);
+		panel6.setBounds(0, 380, 400, 180);
 		panel6.setBackground(Color.WHITE);
-		panel6.add(text, BorderLayout.CENTER);
-
+		// panel6.add(text, BorderLayout.CENTER);
 
 		logo.setBounds(490, 520, 400, 40);
 
@@ -199,9 +236,21 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == casa)
-			FactoryMethodInterface.getModel("Login");
 
+		JLabel ben = new JLabel();
+		panel6.remove(ben);
+		if (e.getSource() == casa) {
+			ben = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
+		} else if (e.getSource() == apartamento) {
+			ben = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
+		} else if (e.getSource() == comercio) {
+			ben = new JLabel(new ImageIcon("resources/imagens/Comercio.jpg"));
+		} else if (e.getSource() == fazenda) {
+			ben = new JLabel(new ImageIcon("resources/imagens/Fazenda.jpg"));
+		}
+		ben.setBounds(10, 40, 100, 100);
+		panel6.add(ben);
+		repaint(20);
 	}
 
 	@Override

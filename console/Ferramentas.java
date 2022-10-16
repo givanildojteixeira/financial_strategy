@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Ferramentas{
-    public static String cMB(Double v) {
+    public String cMB(Double v) {
 		NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
 		return String.format("%10.10s", nf.format(v));
 	}

@@ -15,6 +15,7 @@ public abstract class BensPrototype {
 	public static final String FAZENDA = "Fazenda";
 	public static final String CASA = "Casa";
     public static final String COMERCIO = "Comercio";
+	Ferramentas f = new Ferramentas();
 
 	public String getName() {
 		return name;
@@ -23,10 +24,10 @@ public abstract class BensPrototype {
 	public String getPesquisa(){
 		return 
 		"Nome do Investimento: "  + (getName()) + "\n" +
-		"Valor Compra      R$: "  + Ferramentas.cMB(getValorCompra()) + "\n" +
-		"Valor Venda       R$: "  + Ferramentas.cMB(getValorVenda()) + "\n" +
-		"Retorno           R$: "  + Ferramentas.cMB(getRetorno()) + "\n" +
-		"Despesa Mensal    R$: "  + Ferramentas.cMB(getDespesaMensal()) + "\n";
+		"Valor Compra      R$: "  + f.cMB(getValorCompra()) + "\n" +
+		"Valor Venda       R$: "  + f.cMB(getValorVenda()) + "\n" +
+		"Retorno           R$: "  + f.cMB(getRetorno()) + "\n" +
+		"Despesa Mensal    R$: "  + f.cMB(getDespesaMensal()) + "\n";
 	}
 	
 	public void setName(String name) {

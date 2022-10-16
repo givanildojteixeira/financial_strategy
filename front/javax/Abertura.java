@@ -33,6 +33,8 @@ public class Abertura extends JFrame implements ActionListener, FacInterface {
         // background.setBounds(0, 0, 100, 25);
         background.add(btPlay);
         btPlay.addActionListener(this);
+        getRootPane().setDefaultButton(btPlay);
+
 
         btRegras = new JButton("Regras");
         // btRegras.setBounds(175, 175, 100, 25);
