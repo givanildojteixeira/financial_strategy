@@ -11,6 +11,7 @@ public class FactoryMethodInterface {
 	public static final String REGRA3 = "Regra3";
 	public static final String REGRA4 = "Regra4";
 	public static final String REGRA5 = "Regra5";
+	public static final String MENSAGEM = "Mensagem";
 
 	public static FacInterface getModel(String qualTela) {
 
@@ -33,6 +34,8 @@ public class FactoryMethodInterface {
 				return new regra4();
 			case "Regra5":
 				return new regra5();
+			case "Mensagem":
+				return new mensagem();
 			default:
 				return new Abertura();
 		}

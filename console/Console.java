@@ -16,6 +16,7 @@ public class Console {
             @Override
             public void run() {
                 FactoryMethodInterface.getModel("Abertura");
+                // FactoryMethodInterface.getModel("Mensagem");
             }
         });
         // simulador();

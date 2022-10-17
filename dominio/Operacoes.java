@@ -32,7 +32,7 @@ public class Operacoes {
 	}
 
 	public double leDBValor(String chave) {
-		return Double.parseDouble (Connector.le(chave));
+		return Double.parseDouble(Connector.le(chave));
 	}
 
 	public void CriarConta(String cliente, String tipo) {
@@ -78,10 +78,12 @@ public class Operacoes {
 	public double saldoDaConta() {
 		return c.getConta().getSaldo();
 	}
-	public void gravaSaldoConta(double v){
+
+	public void gravaSaldoConta(double v) {
 		c.getConta().setSaldo(v);
 	}
-	public void gravaLimiteConta(double v){
+
+	public void gravaLimiteConta(double v) {
 		c.getConta().setLimite(v);
 	}
 
@@ -90,17 +92,18 @@ public class Operacoes {
 	}
 
 	// public void transferir(int contaOrigem, int contaDestino, double valor) {
-	// 	try {
-	// 		if (sacar(contaOrigem, valor, "Transferencia")) {
-	// 			depositar(contaDestino, valor, "Transferencia");
-	// 			System.out.println("Transferência de [" + contaOrigem + "] para [" + contaDestino + "] no valor de R$ "
-	// 					+ valor + " processada com sucesso!");
-	// 		} else {
-	// 			System.out.println("Não foi possivel efetuar a transferencia!");
-	// 		}
-	// 	} catch (Exception e) {
-	// 		System.out.println((e.getMessage()));
-	// 	}
+	// try {
+	// if (sacar(contaOrigem, valor, "Transferencia")) {
+	// depositar(contaDestino, valor, "Transferencia");
+	// System.out.println("Transferência de [" + contaOrigem + "] para [" +
+	// contaDestino + "] no valor de R$ "
+	// + valor + " processada com sucesso!");
+	// } else {
+	// System.out.println("Não foi possivel efetuar a transferencia!");
+	// }
+	// } catch (Exception e) {
+	// System.out.println((e.getMessage()));
+	// }
 	// }
 
 	// public boolean sacar(int nroConta, double valor, String descricao) throws
@@ -120,33 +123,34 @@ public class Operacoes {
 	// }
 	// }
 
-	// public void depositar(int nroConta, double valor, String descricao) throws Exception {
-	// 	try {
-	// 		String cliente = c.getConta(nroConta);
-	// 		if (cliente.equals(""))
-	// 			throw new Exception(("Conta nao existe!"));
-	// 		System.out.println(c.getConta(cliente).depositar(valor, descricao));
-	// 		b.movimento.add(new Movimentacao(nroConta, "C", descricao, valor));
-	// 	} catch (Exception e) {
-	// 		System.out.println("Saque não efetuado:" + e.getMessage());
-	// 	}
+	// public void depositar(int nroConta, double valor, String descricao) throws
+	// Exception {
+	// try {
+	// String cliente = c.getConta(nroConta);
+	// if (cliente.equals(""))
+	// throw new Exception(("Conta nao existe!"));
+	// System.out.println(c.getConta(cliente).depositar(valor, descricao));
+	// b.movimento.add(new Movimentacao(nroConta, "C", descricao, valor));
+	// } catch (Exception e) {
+	// System.out.println("Saque não efetuado:" + e.getMessage());
+	// }
 	// }
 
 	// public void extrato(int nroConta) {
-	// 	try {
-	// 		String cliente = c.getConta(nroConta);
-	// 		if (cliente.equals(""))
-	// 			throw new Exception(("Conta nao existe!"));
-	// 		System.out.println(e.getExtrato(c.getConta(cliente)));
-	// 	} catch (Exception e) {
-	// 		System.out.println("Saque não efetuado:" + e.getMessage());
-	// 	}
+	// try {
+	// String cliente = c.getConta(nroConta);
+	// if (cliente.equals(""))
+	// throw new Exception(("Conta nao existe!"));
+	// System.out.println(e.getExtrato(c.getConta(cliente)));
+	// } catch (Exception e) {
+	// System.out.println("Saque não efetuado:" + e.getMessage());
+	// }
 	// }
 
 	// public double saldoConta(int nroConta) {
-	// 	String cliente = c.getConta(nroConta);
-	// 	double saldo = c.getConta(cliente).getSaldo();
-	// 	return saldo;
+	// String cliente = c.getConta(nroConta);
+	// double saldo = c.getConta(cliente).getSaldo();
+	// return saldo;
 	// }
 
 	public void ciclo() throws Exception {
@@ -185,6 +189,24 @@ public class Operacoes {
 		BensCache.loadForms();
 		BensPrototype ben = BensCache.getForm(qual);
 		return ben.getValorVenda();
+	}
+
+	public String nomeDoBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getName();
+	}
+
+	public double retornoDoBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getRetorno();
+	}
+
+	public double despesaDoBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getDespesaMensal();
 	}
 
 	public boolean comprarBens(String bem) throws Exception {

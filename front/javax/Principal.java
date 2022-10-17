@@ -2,7 +2,6 @@ package front.javax;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -30,12 +29,13 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JPanel panel4 = new JPanel();
 	JPanel panel5 = new JPanel();
 	JPanel panel6 = new JPanel();
+	JPanel panelBen = new JPanel();
 
 	Operacoes o = new Operacoes();
 	Ferramentas f = new Ferramentas();
 	// Declara Componentes
-	JButton bt1, bt2, bt3;
-	JLabel investidor, saldo, limite, patrimonio, sub1, sub2;
+	JButton comprar, vender, investir;
+	JLabel investidor, saldo, limite, patrimonio, sub1, sub2, compra, venda, despesa, receita;
 	JTextArea text = new JTextArea();
 	JLabel casa = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
 	JLabel apartamento = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
@@ -51,6 +51,9 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel poupan = new JLabel(new ImageIcon("resources/imagens/Poupanca.jpg"));
 
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
+	JLabel ben = new JLabel();
+
+	String nomedoBem = "";
 
 	Principal() {
 		// criação ou atualizaçao da conta
@@ -82,8 +85,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		sub1.setFont(new Font("Serif", Font.BOLD, 20));
 		sub2 = new JLabel("Aplicações");
 		sub2.setFont(new Font("Serif", Font.BOLD, 20));
-		// bt1 = new JButton("Comprar um casa");
-		// bt1.addActionListener(this);
 
 		casa.addMouseListener(this);
 		casa.setToolTipText("Casa: " +
@@ -230,27 +231,83 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// clique no botao, qual botao
+		if (e.getSource() == comprar){
+			FactoryMethodInterface.getModel("Mensagem");
+		}
+			
+		if (e.getSource() == vender)
+			//
+		if (e.getSource() == investir)
+			//
+		
+		repaint();
 
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		try {
+			panel6.remove(ben);
+			panelBen.remove(compra);
+			panelBen.remove(venda);
+			panelBen.remove(despesa);
+			panelBen.remove(receita);
+			panel6.remove(panelBen);
+			panelBen.remove(comprar);
+			panelBen.remove(vender);
+		} catch (Exception ex) {
+			// Se caiu aqui é porque nao tem criando esse componente aida.
+		}
 
-		JLabel ben = new JLabel();
-		panel6.remove(ben);
 		if (e.getSource() == casa) {
 			ben = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
+			nomedoBem = "Casa";
 		} else if (e.getSource() == apartamento) {
 			ben = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
+			nomedoBem = "Apartamento";
 		} else if (e.getSource() == comercio) {
 			ben = new JLabel(new ImageIcon("resources/imagens/Comercio.jpg"));
+			nomedoBem = "Comercio";
 		} else if (e.getSource() == fazenda) {
 			ben = new JLabel(new ImageIcon("resources/imagens/Fazenda.jpg"));
+			nomedoBem = "Fazenda";
 		}
-		ben.setBounds(10, 40, 100, 100);
+		ben.setBounds(5, 35, 120, 120);
 		panel6.add(ben);
-		repaint(20);
+		panelBen.setLayout(null);
+		panelBen.setBorder(BorderFactory.createTitledBorder(nomedoBem));
+		panelBen.setBackground(Color.WHITE);
+		panelBen.setBounds(130, 15, 260, 150);
+		compra = new JLabel();
+		venda = new JLabel();
+		despesa = new JLabel();
+		receita = new JLabel();
+		compra.setText("Valor Compra  R$" + f.cMB(o.valorCompraBem(nomedoBem)));
+		venda.setText("Valor Venda   R$" + f.cMB(o.valorVendaBem(nomedoBem)));
+		despesa.setText("Valor Despesa R$" + f.cMB(o.despesaDoBem(nomedoBem)));
+		receita.setText("Valor Retorno R$" + f.cMB(o.retornoDoBem(nomedoBem)));
+		compra.setBounds(10, 20, 250, 20);
+		venda.setBounds(10, 40, 250, 20);
+		despesa.setBounds(10, 60, 250, 20);
+		receita.setBounds(10, 80, 250, 20);
+		compra.setFont(new Font("Courier New", Font.BOLD, 15));
+		venda.setFont(new Font("Courier New", Font.BOLD, 15));
+		despesa.setFont(new Font("Courier New", Font.BOLD, 15));
+		receita.setFont(new Font("Courier New", Font.BOLD, 15));
+		comprar = new JButton("Comprar");
+		comprar.setBounds(15, 110, 100, 30);
+		comprar.addActionListener(this);
+		vender = new JButton("Vender");
+		vender.setBounds(140, 110, 100, 30);
+		vender.addActionListener(this);
+		panelBen.add(compra);
+		panelBen.add(venda);
+		panelBen.add(despesa);
+		panelBen.add(receita);
+		panelBen.add(comprar);
+		panelBen.add(vender);
+		panel6.add(panelBen);
+		repaint();
 	}
 
 	@Override
