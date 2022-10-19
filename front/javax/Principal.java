@@ -53,24 +53,36 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
 	JLabel ben = new JLabel();
 
-	String nomedoBem = "";
+	String nomedoBem = "", VlrCompra, VlrVenda;
 
 	Principal() {
 		// criação ou atualizaçao da conta
 		o.CriarConta(Global.USUARIO, "");
 		o.ConectarDB("");
-		if (o.leDB("Usuario").equals(Global.USUARIO)) {
-			// encontrei o nome gravado no banco, entao carrego os dados
+		o.GravarDB("Usuario", Global.USUARIO);
+		try {
+			// tenta carregar os dados do do usuario
 			Double s = o.leDBValor(Global.USUARIO + "-s");
 			o.gravaSaldoConta(s);
 			Double l = o.leDBValor(Global.USUARIO + "-l");
 			o.gravaLimiteConta(l);
-		} else {
+		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
-			o.GravarDB("Usuario", Global.USUARIO);
 			o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
 			o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
+		// if (o.leDB("Usuario").equals(Global.USUARIO)) {
+		// 	// encontrei o nome gravado no banco, entao carrego os dados
+		// 	Double s = o.leDBValor(Global.USUARIO + "-s");
+		// 	o.gravaSaldoConta(s);
+		// 	Double l = o.leDBValor(Global.USUARIO + "-l");
+		// 	o.gravaLimiteConta(l);
+		// } else {
+		// 	// ops, é usuario novo, gravo os dados iniciais
+		// 	o.GravarDB("Usuario", Global.USUARIO);
+		// 	o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
+		// 	o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
+		// }
 
 		setSize(800, 600);
 		setLayout(null);
@@ -234,6 +246,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		if (e.getSource() == comprar) {
 			Global.MSGOK = true;
 			Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
+			Global.MSG2 = "Valor da Compra R$" + VlrCompra;
 			FactoryMethodInterface.getModel("Mensagem");
 		}
 
@@ -241,6 +254,8 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			Global.MSGOK = false;
 			Global.MSG = "Acho que não foi dessa vez, falta pouco!";
 			FactoryMethodInterface.getModel("Mensagem");
+			Global.MSG2 = "Valor da Venda R$" + VlrVenda;
+
 		}
 		if (e.getSource() == investir) {
 
@@ -288,8 +303,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		venda = new JLabel();
 		despesa = new JLabel();
 		receita = new JLabel();
-		compra.setText("Valor Compra  R$" + f.cMB(o.valorCompraBem(nomedoBem)));
-		venda.setText("Valor Venda   R$" + f.cMB(o.valorVendaBem(nomedoBem)));
+		VlrCompra = f.cMB(o.valorCompraBem(nomedoBem));
+		VlrVenda = f.cMB(o.valorVendaBem(nomedoBem));
+		compra.setText("Valor Compra  R$" + VlrCompra);
+		venda.setText("Valor Venda   R$" + VlrVenda);
 		despesa.setText("Valor Despesa R$" + f.cMB(o.despesaDoBem(nomedoBem)));
 		receita.setText("Valor Retorno R$" + f.cMB(o.retornoDoBem(nomedoBem)));
 		compra.setBounds(10, 20, 250, 20);

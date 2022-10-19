@@ -18,6 +18,8 @@ public class Global {
   public static Boolean MSGOK; 
   public static String IMOVEL;
   public static String MSG;
+  public static String MSG2;
+
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();
