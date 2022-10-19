@@ -15,6 +15,9 @@ package console;
 public class Global {
   public static String USUARIO = "";
   public static String TITULO = "Financial Stategy";
+  public static Boolean MSGOK; 
+  public static String IMOVEL;
+  public static String MSG;
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();

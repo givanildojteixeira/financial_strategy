@@ -9,7 +9,7 @@ import java.awt.event.*;
 
 public class mensagem extends JDialog implements ActionListener, FacInterface {
     JButton btAvanco;
-    JLabel msgTitulo, msgSubtitulo;
+    JLabel msgTitulo, msgSubtitulo, background ;
     JPanel panel = new JPanel();
     public mensagem() {
 
@@ -23,19 +23,26 @@ public class mensagem extends JDialog implements ActionListener, FacInterface {
         panel.setBackground(Color.WHITE);
         panel.setLayout(null);
 
-        JLabel background = new JLabel(new ImageIcon("resources/imagens/ok.jpg"));
-        background.setBounds(0, 80, 250, 200);
-
-		msgTitulo = new JLabel();
+        msgTitulo = new JLabel();
 		msgTitulo.setBounds(350, 0, 400, 100);
 		msgTitulo.setFont(new Font("Serif", Font.BOLD, 60));
-		msgTitulo.setText("Parabéns!!!");
-		msgTitulo.setForeground(Color.RED);
+        
+        if (Global.MSGOK == true) {
+            background = new JLabel(new ImageIcon("resources/imagens/ok.jpg"));
+            msgTitulo.setForeground(Color.GREEN);
+            msgTitulo.setText("Parabéns!!!");
+        } else {
+            background = new JLabel(new ImageIcon("resources/imagens/no_ok.jpg"));
+            msgTitulo.setForeground(Color.RED);
+            msgTitulo.setText("Hoo não!!!");
+        }
+        background.setBounds(0, 80, 250, 200);
+
 
         msgSubtitulo = new JLabel();
 		msgSubtitulo.setBounds(290, 70, 700, 100);
 		msgSubtitulo.setFont(new Font("Serif", Font.BOLD, 20));
-		msgSubtitulo.setText("Agora você é proprietário de um novo imóvel!");
+		msgSubtitulo.setText(Global.MSG);
 		// msgSubtitulo.setForeground(Color.BLUE);
 
         add(panel);

@@ -231,15 +231,20 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == comprar){
+		if (e.getSource() == comprar) {
+			Global.MSGOK = true;
+			Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
 			FactoryMethodInterface.getModel("Mensagem");
 		}
-			
-		if (e.getSource() == vender)
-			//
-		if (e.getSource() == investir)
-			//
-		
+
+		if (e.getSource() == vender) {
+			Global.MSGOK = false;
+			Global.MSG = "Acho que não foi dessa vez, falta pouco!";
+			FactoryMethodInterface.getModel("Mensagem");
+		}
+		if (e.getSource() == investir) {
+
+		}
 		repaint();
 
 	}
@@ -255,7 +260,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			panel6.remove(panelBen);
 			panelBen.remove(comprar);
 			panelBen.remove(vender);
-		} catch (Exception ex) {
+		} catch (Exception componenteAindaNaoCriado) {
 			// Se caiu aqui é porque nao tem criando esse componente aida.
 		}
 
@@ -272,6 +277,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			ben = new JLabel(new ImageIcon("resources/imagens/Fazenda.jpg"));
 			nomedoBem = "Fazenda";
 		}
+		Global.IMOVEL = nomedoBem;
 		ben.setBounds(5, 35, 120, 120);
 		panel6.add(ben);
 		panelBen.setLayout(null);
