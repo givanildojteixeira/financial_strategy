@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,6 +25,8 @@ import dominio.Operacoes;
 
 public class Principal extends JFrame implements ActionListener, FacInterface, MouseListener {
 
+	javax.swing.Timer timer;
+
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
 	JPanel panel3 = new JPanel();
@@ -30,6 +34,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JPanel panel5 = new JPanel();
 	JPanel panel6 = new JPanel();
 	JPanel panelBen = new JPanel();
+	JPanel panelRelogio = new JPanel();
+	JPanel panelLogo = new JPanel();
+	JLabel ben = new JLabel();
+	JLabel horario = new JLabel();
 
 	Operacoes o = new Operacoes();
 	Ferramentas f = new Ferramentas();
@@ -51,7 +59,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel poupan = new JLabel(new ImageIcon("resources/imagens/Poupanca.jpg"));
 
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
-	JLabel ben = new JLabel();
 
 	String nomedoBem = "", VlrCompra, VlrVenda;
 
@@ -71,18 +78,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
 			o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
-		// if (o.leDB("Usuario").equals(Global.USUARIO)) {
-		// 	// encontrei o nome gravado no banco, entao carrego os dados
-		// 	Double s = o.leDBValor(Global.USUARIO + "-s");
-		// 	o.gravaSaldoConta(s);
-		// 	Double l = o.leDBValor(Global.USUARIO + "-l");
-		// 	o.gravaLimiteConta(l);
-		// } else {
-		// 	// ops, é usuario novo, gravo os dados iniciais
-		// 	o.GravarDB("Usuario", Global.USUARIO);
-		// 	o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
-		// 	o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
-		// }
 
 		setSize(800, 600);
 		setLayout(null);
@@ -228,7 +223,17 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel6.setBackground(Color.WHITE);
 		// panel6.add(text, BorderLayout.CENTER);
 
-		logo.setBounds(490, 520, 400, 40);
+		panelRelogio.setLayout(new BorderLayout());
+		panelRelogio.setBorder(BorderFactory.createTitledBorder("Ciclo"));
+		panelRelogio.setBounds(401, 480, 180, 80);
+		panelRelogio.setBackground(Color.WHITE);
+		horario.setFont(new Font("Serif", Font.BOLD, 15));
+
+		panelLogo.setLayout(new BorderLayout());
+		panelLogo.setBorder(BorderFactory.createTitledBorder(" "));
+		panelLogo.setBounds(581, 480, 200, 80);
+		panelLogo.setBackground(Color.WHITE);
+		// logo.setBounds(490, 480, 400, 40);
 
 		add(panel1);
 		add(panel2);
@@ -236,14 +241,29 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		add(panel4);
 		add(panel5);
 		add(panel6);
-		add(logo);
-
+		add(panelRelogio);
+		panelRelogio.add(horario);
+		add(panelLogo);
+		panelLogo.add(logo);
+		disparaRelogio();
 		repaint();
+	}
+
+	public void disparaRelogio() {
+		if (timer == null) {
+			timer = new javax.swing.Timer(1000, this);
+			timer.setInitialDelay(0);
+			timer.start();
+		} else if (!timer.isRunning()) {
+			timer.restart();
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == comprar) {
+			o.comprarBens(nomedoBem);
+
 			Global.MSGOK = true;
 			Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
 			Global.MSG2 = "Valor da Compra R$" + VlrCompra;
@@ -260,6 +280,11 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		if (e.getSource() == investir) {
 
 		}
+
+		Date hora = new Date();
+		SimpleDateFormat hora_formato = new SimpleDateFormat("HH:mm:ss");
+		horario.setText("time: " + hora_formato.format(hora));
+
 		repaint();
 
 	}

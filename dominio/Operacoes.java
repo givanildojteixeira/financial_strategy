@@ -209,7 +209,7 @@ public class Operacoes {
 		return ben.getDespesaMensal();
 	}
 
-	public boolean comprarBens(String bem) throws Exception {
+	public boolean comprarBens(String bem) {
 		BensCache.loadForms();
 		BensPrototype ben = BensCache.getForm(BensPrototype.CASA);
 
@@ -233,10 +233,10 @@ public class Operacoes {
 		// tem saldo?
 		if (saldoDaConta() >= valorDoBem) {
 			sacar(valorDoBem, "Compra de uma casa!");
+			GravarDB(Global.USUARIO  + bem,"1");
 		} else {
-			throw new Exception(("Nao há saldo para compra da Casa!"));
+			return false;
 		}
-
 		return true;
 	}
 
