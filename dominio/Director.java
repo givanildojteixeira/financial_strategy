@@ -28,9 +28,9 @@ public class Director {
 		return contaBuilder.ListeContas();
 	}
 	
-	public boolean CicloContas() throws Exception{
-		return contaBuilder.CicloContas();
-	}
+	// public boolean CicloContas() throws Exception{
+	// 	return contaBuilder.CicloContas();
+	// }
 
 
 	// public String getConta(int nroConta) {

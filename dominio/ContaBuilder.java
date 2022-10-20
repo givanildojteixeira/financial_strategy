@@ -29,9 +29,6 @@ public abstract class ContaBuilder {
 		return (banco.listaContas());
 	}
 
-	public boolean CicloContas() throws Exception{
-		return banco.CicloContas();
-	}
 
 	public String getConta(int nroConta) {
 		return Banco.nomeDoCliente(nroConta);

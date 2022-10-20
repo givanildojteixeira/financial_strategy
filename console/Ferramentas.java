@@ -7,7 +7,7 @@ import java.util.Locale;
 public class Ferramentas{
     public String cMB(Double v) {
 		NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
-		return String.format("%10.10s", nf.format(v));
+		return String.format("%10.15s", nf.format(v));
 	}
 
 	public String converteNroIdenticador(int v) {

@@ -1,12 +1,15 @@
 package dominio;
 
-import dominio.Products.ContaAdministrador;
-import dominio.Products.ContaCorrente;
-import dominio.Products.ContaPro;
+import java.beans.beancontext.BeanContextMembershipListener;
+
 import Relatorios.Extratos;
 import bancoDados.Connector;
 import console.Global;
-import dominio.Investimentos.*;
+import dominio.Investimentos.BensCache;
+import dominio.Investimentos.BensPrototype;
+import dominio.Products.ContaAdministrador;
+import dominio.Products.ContaCorrente;
+import dominio.Products.ContaPro;
 
 public class Operacoes {
 	Director c = new Director();
@@ -81,10 +84,12 @@ public class Operacoes {
 
 	public void gravaSaldoConta(double v) {
 		c.getConta().setSaldo(v);
+		GravarDBValor(Global.USUARIO + "-s", v);
 	}
 
 	public void gravaLimiteConta(double v) {
 		c.getConta().setLimite(v);
+		GravarDBValor(Global.USUARIO + "-l", v);
 	}
 
 	public double limiteDaConta() {
@@ -153,14 +158,16 @@ public class Operacoes {
 	// return saldo;
 	// }
 
-	public void ciclo() throws Exception {
+	public void ciclo() {
 		/*
 		 * Adiciona um valor para cada conta para aumentar o capital
 		 * contas Pro recebem um bonus
 		 * contas Adm nao recebem nada
 		 */
 		System.out.println("Ciclo de contas Iniciado");
-		c.CicloContas();
+		// soma o salário ao saldo
+		gravaSaldoConta(saldoDaConta() + 300);
+
 	}
 
 	public void pesquisaBens() {
@@ -210,34 +217,34 @@ public class Operacoes {
 	}
 
 	public boolean comprarBens(String bem) {
-		BensCache.loadForms();
-		BensPrototype ben = BensCache.getForm(BensPrototype.CASA);
-
-		switch (bem) {
-			case "Casa":
-				ben = BensCache.getForm(BensPrototype.CASA);
-				break;
-			case "Apartamento":
-				ben = BensCache.getForm(BensPrototype.APARTAMENTO);
-				break;
-			case "Comercio":
-				ben = BensCache.getForm(BensPrototype.COMERCIO);
-				break;
-			case "Fazenda":
-				ben = BensCache.getForm(BensPrototype.FAZENDA);
-				break;
-		}
-
-		double valorDoBem = ben.getValorCompra();
-
 		// tem saldo?
+		double valorDoBem = valorCompraBem(bem);
 		if (saldoDaConta() >= valorDoBem) {
 			sacar(valorDoBem, "Compra de uma casa!");
-			GravarDB(Global.USUARIO  + bem,"1");
+			gravaSaldoConta(saldoDaConta());
+			atualizaBensUsuario(bem);
 		} else {
 			return false;
 		}
 		return true;
+	}
+
+	public void atualizaBensUsuario(String bem) {
+		double q = 0.0, r = 0.0, d = 0.0;
+		try {
+			q = leDBValor(Global.USUARIO + "-" + bem + "-Quant");
+			r = leDBValor(Global.USUARIO + "-" + bem + "-Retorno");
+			d = leDBValor(Global.USUARIO + "-" + bem + "-Despesa");
+
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Quant", q + 1);
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Retorno", r + retornoDoBem(bem));
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem));
+
+		} catch (Exception e) {
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Quant", q + 1);
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Retorno", r + retornoDoBem(bem));
+			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem));
+		}
 	}
 
 }

@@ -17,7 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import console.Ferramentas;
 import console.Global;
@@ -35,9 +37,14 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JPanel panel6 = new JPanel();
 	JPanel panelBen = new JPanel();
 	JPanel panelRelogio = new JPanel();
+	JPanel panelCiclo = new JPanel();
 	JPanel panelLogo = new JPanel();
+
 	JLabel ben = new JLabel();
 	JLabel horario = new JLabel();
+	JLabel cronometro = new JLabel();
+
+	JProgressBar prbConta = new JProgressBar();
 
 	Operacoes o = new Operacoes();
 	Ferramentas f = new Ferramentas();
@@ -61,6 +68,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
 
 	String nomedoBem = "", VlrCompra, VlrVenda;
+	int v = 1; // para controlar o ciclo
 
 	Principal() {
 		// criação ou atualizaçao da conta
@@ -75,8 +83,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			o.gravaLimiteConta(l);
 		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
-			o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
-			o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
+			o.gravaSaldoConta(o.saldoDaConta());
+			o.gravaLimiteConta(o.limiteDaConta());
+			// o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
+			// o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
 
 		setSize(800, 600);
@@ -223,11 +233,18 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel6.setBackground(Color.WHITE);
 		// panel6.add(text, BorderLayout.CENTER);
 
+		panelCiclo.setLayout(new BorderLayout());
+		panelCiclo.setBorder(BorderFactory.createTitledBorder("Ciclo"));
+		panelCiclo.setBounds(401, 480, 180, 40);
+		panelCiclo.setBackground(Color.WHITE);
+
 		panelRelogio.setLayout(new BorderLayout());
-		panelRelogio.setBorder(BorderFactory.createTitledBorder("Ciclo"));
-		panelRelogio.setBounds(401, 480, 180, 80);
+		panelRelogio.setBorder(BorderFactory.createTitledBorder("Tempo de Jogo"));
+		panelRelogio.setBounds(401, 520, 180, 40);
 		panelRelogio.setBackground(Color.WHITE);
-		horario.setFont(new Font("Serif", Font.BOLD, 15));
+		horario.setFont(new Font("Serif", Font.BOLD, 20));
+		horario.setHorizontalAlignment(SwingConstants.CENTER);
+		horario.setForeground(Color.GREEN);
 
 		panelLogo.setLayout(new BorderLayout());
 		panelLogo.setBorder(BorderFactory.createTitledBorder(" "));
@@ -235,14 +252,25 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panelLogo.setBackground(Color.WHITE);
 		// logo.setBounds(490, 480, 400, 40);
 
+		// Define o valor inicial da Barra
+		prbConta.setMinimum(0);
+		// Define o valor final da Barra de Progresso
+		prbConta.setMaximum(50);
+		// Mostra o valor na barra
+		prbConta.setStringPainted(true);
+		// Insere a barra
+
 		add(panel1);
 		add(panel2);
 		add(panel3);
 		add(panel4);
 		add(panel5);
 		add(panel6);
+		add(panelCiclo);
+		panelCiclo.add(prbConta, BorderLayout.SOUTH);
 		add(panelRelogio);
 		panelRelogio.add(horario);
+
 		add(panelLogo);
 		panelLogo.add(logo);
 		disparaRelogio();
@@ -262,29 +290,46 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == comprar) {
-			o.comprarBens(nomedoBem);
-
-			Global.MSGOK = true;
-			Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
-			Global.MSG2 = "Valor da Compra R$" + VlrCompra;
-			FactoryMethodInterface.getModel("Mensagem");
+			if (o.comprarBens(nomedoBem)) {
+				Global.MSGOK = true;
+				Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
+				Global.MSG2 = "Valor da Compra R$" + VlrCompra;
+				FactoryMethodInterface.getModel("Mensagem");
+			} else {
+				Global.MSGOK = false;
+				Global.MSG = "Acho que não foi dessa vez, falta pouco!";
+				FactoryMethodInterface.getModel("Mensagem");
+				Global.MSG2 = "Valor do Bem R$" + VlrCompra;
+			}
 		}
 
 		if (e.getSource() == vender) {
-			Global.MSGOK = false;
-			Global.MSG = "Acho que não foi dessa vez, falta pouco!";
-			FactoryMethodInterface.getModel("Mensagem");
 			Global.MSG2 = "Valor da Venda R$" + VlrVenda;
 
 		}
 		if (e.getSource() == investir) {
 
 		}
-
+		// geral
+		//atualiza o horario
 		Date hora = new Date();
 		SimpleDateFormat hora_formato = new SimpleDateFormat("HH:mm:ss");
-		horario.setText("time: " + hora_formato.format(hora));
+		horario.setText( hora_formato.format(hora));
+		//atualiza o cronometro
 
+
+		// atualiza a barra de progresso
+		prbConta.setValue(v);
+		v++;
+		if (v >= 50) {
+			// inicia um ciclo
+			o.ciclo();
+			v = 1;
+		}
+		//atualizar a tela
+		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
+		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
+		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
 		repaint();
 
 	}
