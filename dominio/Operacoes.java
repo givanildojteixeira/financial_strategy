@@ -1,10 +1,8 @@
 package dominio;
 
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import Relatorios.Extratos;
 import bancoDados.Connector;
@@ -177,7 +175,6 @@ public class Operacoes {
 	public void pesquisaBens() {
 
 		// BensCache.loadForms();
-		// BensCache.loadBens(null, null);
 		// BensPrototype casa;
 		// BensPrototype apartamento = BensCache.getForm(BensPrototype.Apartamento);
 
@@ -220,11 +217,47 @@ public class Operacoes {
 		return ben.getDespesaMensal();
 	}
 
+	public void atualizaQuantidadeBem(String qual, int quant) {
+		switch (qual) {
+			case "Casa":
+				Global.CASA = quant;
+				break;
+			case "Apartamento":
+				Global.APARTAMENTO = quant;
+				break;
+			case "Comercio":
+				Global.COMERCIO = quant;
+				break;
+			case "Fazenda":
+				Global.FAZENDA = quant;
+				break;
+		}
+
+	}
+
+	public int getQuantidadeBem(String qual) {
+		switch (qual) {
+			case "Casa":
+				return Global.CASA;
+
+			case "Apartamento":
+				return Global.APARTAMENTO;
+
+			case "Comercio":
+				return Global.COMERCIO;
+
+			case "Fazenda":
+				return Global.FAZENDA;
+
+		}
+		return 0;
+	}
+
 	public boolean comprarBens(String bem) {
 		// tem saldo?
 		double valorDoBem = valorCompraBem(bem);
 		if (saldoDaConta() >= valorDoBem) {
-			sacar(valorDoBem, "Compra de uma casa!");
+			sacar(valorDoBem, "Compra de " + bem);
 			gravaSaldoConta(saldoDaConta());
 			atualizaBensUsuario(bem);
 		} else {
@@ -249,6 +282,7 @@ public class Operacoes {
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Retorno", r + retornoDoBem(bem));
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem));
 		}
+		atualizaQuantidadeBem(bem, (int) (q + 1));
 	}
 
 	public String calcularDiferencaHoras(String horaInicial, String horaFinal) {

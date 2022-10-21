@@ -43,6 +43,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel ben = new JLabel();
 	JLabel horario = new JLabel();
 	JLabel cronometro = new JLabel();
+	JLabel lblCasa = new JLabel();
+	JLabel lblApartamento = new JLabel();
+	JLabel lblComercio = new JLabel();
+	JLabel lblFazenda = new JLabel();
 
 	JProgressBar prbConta = new JProgressBar();
 
@@ -81,6 +85,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			o.gravaSaldoConta(s);
 			Double l = o.leDBValor(Global.USUARIO + "-l");
 			o.gravaLimiteConta(l);
+			Global.CASA = (int) o.leDBValor(Global.USUARIO + "-Casa-Quant");
+			Global.APARTAMENTO = (int) o.leDBValor(Global.USUARIO + "-Apartamento-Quant");
+			Global.COMERCIO = (int) o.leDBValor(Global.USUARIO + "-Comercio-Quant");
+			Global.FAZENDA = (int) o.leDBValor(Global.USUARIO + "-Fazenda-Quant");
 		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
 			o.gravaSaldoConta(o.saldoDaConta());
@@ -182,7 +190,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel3.add(poupan);
 
 		// panel4
-		JLabel lblCasa, lblComercio, lblApartamento, lblFazenda;
+		// JLabel lblCasa, lblComercio, lblApartamento, lblFazenda;
 		panel4.setLayout(null);
 		panel4.setBorder(BorderFactory.createTitledBorder("Meu Patrimônio"));
 		panel4.setBounds(401, 82, 380, 200);
@@ -191,22 +199,18 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		apartamentoM.setBounds(8, 55, 60, 60);
 		comercioM.setBounds(14, 105, 50, 50);
 		fazendaM.setBounds(5, 135, 80, 80);
-		lblCasa = new JLabel();
 		lblCasa.setBounds(75, 33, 400, 20);
 		lblCasa.setFont(new Font("Serif", Font.BOLD, 15));
 		lblCasa.setText("Você ainda não adquiriu essa propriedade");
 		lblCasa.setForeground(Color.GRAY);
-		lblApartamento = new JLabel();
 		lblApartamento.setBounds(75, 75, 400, 20);
 		lblApartamento.setFont(new Font("Serif", Font.BOLD, 15));
 		lblApartamento.setText("Você ainda não adquiriu essa propriedade");
 		lblApartamento.setForeground(Color.GRAY);
-		lblComercio = new JLabel();
 		lblComercio.setBounds(75, 120, 400, 20);
 		lblComercio.setFont(new Font("Serif", Font.BOLD, 15));
 		lblComercio.setText("Você ainda não adquiriu essa propriedade");
 		lblComercio.setForeground(Color.GRAY);
-		lblFazenda = new JLabel();
 		lblFazenda.setBounds(75, 165, 400, 20);
 		lblFazenda.setFont(new Font("Serif", Font.BOLD, 15));
 		lblFazenda.setText("Você ainda não adquiriu essa propriedade");
@@ -274,6 +278,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		add(panelLogo);
 		panelLogo.add(logo);
 		disparaRelogio();
+		atualizaTelaPrincipal();
 		repaint();
 	}
 
@@ -301,6 +306,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 				FactoryMethodInterface.getModel("Mensagem");
 				Global.MSG2 = "Valor do Bem R$" + VlrCompra;
 			}
+			atualizaTelaPrincipal();
 		}
 
 		if (e.getSource() == vender) {
@@ -313,11 +319,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		// geral
 		Date hora = new Date();
 		SimpleDateFormat hora_formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		//atualiza o horario
-		//horario.setText( hora_formato.format(hora));
-		//atualiza o cronometro
-		horario.setText(o.calcularDiferencaHoras(Global.TimeInicial, hora_formato.format(hora)));
-		
+		// atualiza o horario
+		// horario.setText( hora_formato.format(hora));
+		// atualiza o cronometro
+		horario.setText(o.calcularDiferencaHoras(Global.TIMEINICIAL, hora_formato.format(hora)));
 
 		// atualiza a barra de progresso
 		prbConta.setValue(v);
@@ -327,19 +332,38 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			o.ciclo();
 			v = 1;
 		}
-		//atualizar a tela
-		atualizaTelaPrincipal();
+		// atualizar a tela
+		// atualizaTelaPrincipal();
 		repaint();
 
 	}
 
-	private void atualizaTelaPrincipal(){
+	private void atualizaTelaPrincipal() {
 		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
 		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
 
+		lblCasa.setText(qb("Casa"));
+		lblApartamento.setText(qb("Apartamento"));
+		lblComercio.setText(qb("Comercio"));
+		lblFazenda.setText(qb("Fazenda"));
 		repaint();
 
+	}
+
+	private String qb(String q) {
+		String r;
+		if (o.getQuantidadeBem(q) > 0) {
+			r = "Você possui "
+					+ o.getQuantidadeBem(q)
+					+ " R R$ " + o.getQuantidadeBem(q) * o.retornoDoBem(q)
+					+ " D R$ " + o.getQuantidadeBem(q) * o.despesaDoBem(q);
+
+		} else {
+			r = "Você ainda nao possui essa propriedade!";
+		}
+
+		return r;
 	}
 
 	@Override

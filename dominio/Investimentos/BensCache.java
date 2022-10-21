@@ -23,4 +23,5 @@ public class BensCache {
 	public static void loadBens(String key, BensPrototype value) {
 		forms.put(key, value);
 	}
+	
 }

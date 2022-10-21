@@ -19,7 +19,11 @@ public class Global {
   public static String IMOVEL;
   public static String MSG;
   public static String MSG2;
-  public static String TimeInicial;
+  public static String TIMEINICIAL;
+  public static int CASA;
+  public static int APARTAMENTO;
+  public static int COMERCIO;
+  public static int FAZENDA;
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();

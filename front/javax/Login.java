@@ -70,7 +70,7 @@ public class Login extends JFrame implements ActionListener, FacInterface {
                 Global.USUARIO = user.toUpperCase();
                 Date hora = new Date();
                 SimpleDateFormat hora_formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                Global.TimeInicial = hora_formato.format(hora);
+                Global.TIMEINICIAL = hora_formato.format(hora);
                 FactoryMethodInterface.getModel("Principal");
             }
         }

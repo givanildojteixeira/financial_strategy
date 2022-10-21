@@ -33,7 +33,7 @@ public abstract class BensPrototype {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 
 	public double getValorCompra() {
 		return this.valorCompra;
@@ -66,4 +66,6 @@ public abstract class BensPrototype {
 	public void setDespesaMensal(double despesaMensal) {
 		this.despesaMensal = despesaMensal;
 	}
+
+
 }
