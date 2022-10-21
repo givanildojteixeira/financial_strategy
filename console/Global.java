@@ -19,7 +19,7 @@ public class Global {
   public static String IMOVEL;
   public static String MSG;
   public static String MSG2;
-
+  public static String TimeInicial;
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();

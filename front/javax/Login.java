@@ -7,6 +7,8 @@ import dominio.Operacoes;
 
 import java.awt.Color;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Login extends JFrame implements ActionListener, FacInterface {
     Operacoes o = new Operacoes();
@@ -47,7 +49,7 @@ public class Login extends JFrame implements ActionListener, FacInterface {
         add(txtPass);
         add(botao);
         botao.addActionListener(this);
-        getRootPane().setDefaultButton(botao);    //SETA O BOTAO COMO DEFAULT
+        getRootPane().setDefaultButton(botao); // SETA O BOTAO COMO DEFAULT
 
         setVisible(true);
         repaint();
@@ -66,6 +68,9 @@ public class Login extends JFrame implements ActionListener, FacInterface {
                 // System.out.println(o.saldoDaConta());
                 // System.out.println(o.limiteDaConta());
                 Global.USUARIO = user.toUpperCase();
+                Date hora = new Date();
+                SimpleDateFormat hora_formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                Global.TimeInicial = hora_formato.format(hora);
                 FactoryMethodInterface.getModel("Principal");
             }
         }

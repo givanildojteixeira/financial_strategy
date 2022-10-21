@@ -311,12 +311,13 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 		}
 		// geral
-		//atualiza o horario
 		Date hora = new Date();
-		SimpleDateFormat hora_formato = new SimpleDateFormat("HH:mm:ss");
-		horario.setText( hora_formato.format(hora));
+		SimpleDateFormat hora_formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		//atualiza o horario
+		//horario.setText( hora_formato.format(hora));
 		//atualiza o cronometro
-
+		horario.setText(o.calcularDiferencaHoras(Global.TimeInicial, hora_formato.format(hora)));
+		
 
 		// atualiza a barra de progresso
 		prbConta.setValue(v);
@@ -327,9 +328,16 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			v = 1;
 		}
 		//atualizar a tela
+		atualizaTelaPrincipal();
+		repaint();
+
+	}
+
+	private void atualizaTelaPrincipal(){
 		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
 		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
+
 		repaint();
 
 	}

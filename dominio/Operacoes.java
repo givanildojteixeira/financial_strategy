@@ -1,6 +1,10 @@
 package dominio;
 
-import java.beans.beancontext.BeanContextMembershipListener;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import Relatorios.Extratos;
 import bancoDados.Connector;
@@ -244,6 +248,24 @@ public class Operacoes {
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Quant", q + 1);
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Retorno", r + retornoDoBem(bem));
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem));
+		}
+	}
+
+	public String calcularDiferencaHoras(String horaInicial, String horaFinal) {
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+		try {
+			LocalDateTime dt1 = LocalDateTime.parse(horaInicial, f);
+			LocalDateTime dt2 = LocalDateTime.parse(horaFinal, f);
+
+			// long diferencaMili = Duration.between(dt1, dt2).toMillis();
+			long ds = Duration.between(dt1, dt2).getSeconds() - (Duration.between(dt1, dt2).toMinutes() * 60);
+			long dm = Duration.between(dt1, dt2).toMinutes();
+			long dh = Duration.between(dt1, dt2).toHours();
+			return String.format("%02d:%02d:%02d", dh, dm, ds);
+
+		} catch (Exception ex) {
+			return ("");
 		}
 	}
 

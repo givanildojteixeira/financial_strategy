@@ -16,22 +16,17 @@
 >    Comercio possui risco moderado, a cada n ciclos pode ser ser prejuizos
 >    Area rural, rende muito, mas o risco é maior
 
-Doações isentam parte de imposto.
+# TO DO
+Quando compra a casa falta ajustar painel de bens
+Falta fazer toda a parte de Investimentos
+No ciclo deve calcular os rendimentos e despesas dos bens
+
+# TO DO Regras
 A partir de determinado ciclo, iniciam as despesas
     fixas: sobre o ganho de capital
     fixas: pagamento fixos mensais
     variáveis: quebra de maquinas
     variáveis: despesas médicas.
-
-O objetivo do jogo é ganhar dinheiro.
-No final de um numero de ciclos, quem tiver mais $ vence.
-
-É possivel emprestar $ do banco
-É possivel disponibilizar $ para o mercado negro com altos ganhos
-É possivel saquear contas no mercado negro
-É possivel emprestar $ do mercado negro sem pagar impostos, 
-    mas fica vulnerável a fiscalização e pode ter que pagar multa.
-
 
 
 # Utilização de Padroes:
