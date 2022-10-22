@@ -14,5 +14,7 @@ public class Casa extends BensPrototype {
 		setValorVenda(800);
 		setRetorno(100);
 		setDespesaMensal(10);
+		setImagem("resources/imagens/Casa.jpg");
+		setIcone("resources/imagens/Casa_m.jpg");
 	}
 }

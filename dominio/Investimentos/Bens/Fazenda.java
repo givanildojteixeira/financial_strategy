@@ -14,5 +14,7 @@ public class Fazenda extends BensPrototype {
 		setValorVenda(3000);
 		setRetorno(500);
 		setDespesaMensal(100);
+		setImagem("resources/imagens/Fazenda.jpg");
+		setIcone("resources/imagens/Fazenda_m.jpg");
 	}
 }

@@ -56,18 +56,19 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JButton comprar, vender, investir;
 	JLabel investidor, saldo, limite, patrimonio, sub1, sub2, compra, venda, despesa, receita;
 	JTextArea text = new JTextArea();
-	JLabel casa = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
-	JLabel apartamento = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
-	JLabel comercio = new JLabel(new ImageIcon("resources/imagens/Comercio.jpg"));
-	JLabel fazenda = new JLabel(new ImageIcon("resources/imagens/Fazenda.jpg"));
-	JLabel casaM = new JLabel(new ImageIcon("resources/imagens/Casa_m.jpg"));
-	JLabel apartamentoM = new JLabel(new ImageIcon("resources/imagens/Apartamento_m.jpg"));
-	JLabel comercioM = new JLabel(new ImageIcon("resources/imagens/Comercio_m.jpg"));
-	JLabel fazendaM = new JLabel(new ImageIcon("resources/imagens/Fazenda_m.jpg"));
-	JLabel acoes = new JLabel(new ImageIcon("resources/imagens/Acoes.jpg"));
-	JLabel fimob = new JLabel(new ImageIcon("resources/imagens/FundoImobiliario.jpg"));
-	JLabel frenda = new JLabel(new ImageIcon("resources/imagens/FundoRendaFixa.jpg"));
-	JLabel poupan = new JLabel(new ImageIcon("resources/imagens/Poupanca.jpg"));
+	JLabel casa = new JLabel(new ImageIcon(o.imagemDoBem("Casa")));
+	JLabel apartamento = new JLabel(new ImageIcon(o.imagemDoBem("Apartamento")));
+	JLabel comercio = new JLabel(new ImageIcon(o.imagemDoBem("Comercio")));
+	JLabel fazenda = new JLabel(new ImageIcon(o.imagemDoBem("Fazenda")));
+	JLabel casaM = new JLabel(new ImageIcon(o.iconeDoBem("Casa")));
+	JLabel apartamentoM = new JLabel(new ImageIcon(o.iconeDoBem("Apartamento")));
+	JLabel comercioM = new JLabel(new ImageIcon(o.iconeDoBem("Comercio")));
+	JLabel fazendaM = new JLabel(new ImageIcon(o.iconeDoBem("Fazenda")));
+
+	JLabel acoes = new JLabel(new ImageIcon(o.imagemDoBem("Acoes")));
+	JLabel fimob = new JLabel(new ImageIcon(o.imagemDoBem("FundoImobiliario")));
+	JLabel frenda = new JLabel(new ImageIcon(o.imagemDoBem("FundoRendaFixa")));
+	JLabel poupan = new JLabel(new ImageIcon(o.imagemDoBem("Poupanca")));
 
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
 
@@ -75,7 +76,11 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	int v = 1; // para controlar o ciclo
 
 	Principal() {
-		// criação ou atualizaçao da conta
+		/*
+		 * Criação ou atualização da conta na entrada do sistema,
+		 * gerando a carga inicial ou recuperando informações
+		 */
+
 		o.CriarConta(Global.USUARIO, "");
 		o.ConectarDB("");
 		o.GravarDB("Usuario", Global.USUARIO);
@@ -153,7 +158,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		patrimonio = new JLabel();
 		patrimonio.setAlignmentX(3);
 		patrimonio.setFont(new Font("Serif", Font.BOLD, 20));
-		// patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
+		// patrimonio.setText(" | Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite = new JLabel();
 		limite.setAlignmentX(3);
 		limite.setFont(new Font("Serif", Font.BOLD, 15));
@@ -190,7 +195,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel3.add(poupan);
 
 		// panel4
-		// JLabel lblCasa, lblComercio, lblApartamento, lblFazenda;
 		panel4.setLayout(null);
 		panel4.setBorder(BorderFactory.createTitledBorder("Meu Patrimônio"));
 		panel4.setBounds(401, 82, 380, 200);
@@ -201,19 +205,15 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		fazendaM.setBounds(5, 135, 80, 80);
 		lblCasa.setBounds(75, 33, 400, 20);
 		lblCasa.setFont(new Font("Serif", Font.BOLD, 15));
-		// lblCasa.setText("Você ainda não adquiriu essa propriedade");
 		lblCasa.setForeground(Color.GRAY);
 		lblApartamento.setBounds(75, 75, 400, 20);
 		lblApartamento.setFont(new Font("Serif", Font.BOLD, 15));
-		// lblApartamento.setText("Você ainda não adquiriu essa propriedade");
 		lblApartamento.setForeground(Color.GRAY);
 		lblComercio.setBounds(75, 120, 400, 20);
 		lblComercio.setFont(new Font("Serif", Font.BOLD, 15));
-		// lblComercio.setText("Você ainda não adquiriu essa propriedade");
 		lblComercio.setForeground(Color.GRAY);
 		lblFazenda.setBounds(75, 165, 400, 20);
 		lblFazenda.setFont(new Font("Serif", Font.BOLD, 15));
-		// lblFazenda.setText("Você ainda não adquiriu essa propriedade");
 		lblFazenda.setForeground(Color.GRAY);
 		panel4.add(casaM);
 		panel4.add(lblCasa);
@@ -254,15 +254,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panelLogo.setBorder(BorderFactory.createTitledBorder(" "));
 		panelLogo.setBounds(581, 480, 200, 80);
 		panelLogo.setBackground(Color.WHITE);
-		// logo.setBounds(490, 480, 400, 40);
 
-		// Define o valor inicial da Barra
 		prbConta.setMinimum(0);
-		// Define o valor final da Barra de Progresso
-		prbConta.setMaximum(50);
-		// Mostra o valor na barra
+		prbConta.setMaximum(Global.TEMPOCICLO + 1);
 		prbConta.setStringPainted(true);
-		// Insere a barra
 
 		add(panel1);
 		add(panel2);
@@ -322,12 +317,12 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		// atualiza o horario
 		// horario.setText( hora_formato.format(hora));
 		// atualiza o cronometro
-		horario.setText(o.calcularDiferencaHoras(Global.TIMEINICIAL, hora_formato.format(hora)));
+		horario.setText(f.calcularDiferencaHoras(Global.TIMEINICIAL, hora_formato.format(hora)));
 
 		// atualiza a barra de progresso
 		prbConta.setValue(v);
 		v++;
-		if (v >= 50) {
+		if (v > Global.TEMPOCICLO) {
 			// inicia um ciclo
 			o.ciclo();
 			atualizaTelaPrincipal();

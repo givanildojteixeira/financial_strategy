@@ -1,9 +1,5 @@
 package dominio;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import Relatorios.Extratos;
 import bancoDados.Connector;
 import console.Global;
@@ -166,25 +162,9 @@ public class Operacoes {
 		 * contas Pro recebem um bonus
 		 * contas Adm nao recebem nada
 		 */
-		// System.out.println("Ciclo de contas Iniciado");
 		// soma o salário ao saldo
 		gravaSaldoConta(saldoDaConta() + 300);
 
-	}
-
-	public void pesquisaBens() {
-
-		// BensCache.loadForms();
-		// BensPrototype casa;
-		// BensPrototype apartamento = BensCache.getForm(BensPrototype.Apartamento);
-
-		// System.out.println(casa.getPesquisa());
-		// System.out.println(apartamento.getPesquisa());
-
-		// Apartamento apartamento = new Apartamento();
-		// BensCache.loadBens(BensPrototype.Apartamento, apartamento);
-		// bem = BensCache.getForm(BensPrototype.Apartamento);
-		// System.out.println(bem.getPesquisa());
 	}
 
 	public double valorCompraBem(String qual) {
@@ -203,6 +183,18 @@ public class Operacoes {
 		BensCache.loadForms();
 		BensPrototype ben = BensCache.getForm(qual);
 		return ben.getName();
+	}
+
+	public String imagemDoBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getImagem();
+	}
+
+	public String iconeDoBem(String qual) {
+		BensCache.loadForms();
+		BensPrototype ben = BensCache.getForm(qual);
+		return ben.getIcone();
 	}
 
 	public double retornoDoBem(String qual) {
@@ -283,24 +275,6 @@ public class Operacoes {
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem));
 		}
 		atualizaQuantidadeBem(bem, (int) (q + 1));
-	}
-
-	public String calcularDiferencaHoras(String horaInicial, String horaFinal) {
-		DateTimeFormatter f = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-
-		try {
-			LocalDateTime dt1 = LocalDateTime.parse(horaInicial, f);
-			LocalDateTime dt2 = LocalDateTime.parse(horaFinal, f);
-
-			// long diferencaMili = Duration.between(dt1, dt2).toMillis();
-			long ds = Duration.between(dt1, dt2).getSeconds() - (Duration.between(dt1, dt2).toMinutes() * 60);
-			long dm = Duration.between(dt1, dt2).toMinutes();
-			long dh = Duration.between(dt1, dt2).toHours();
-			return String.format("%02d:%02d:%02d", dh, dm, ds);
-
-		} catch (Exception ex) {
-			return ("");
-		}
 	}
 
 }

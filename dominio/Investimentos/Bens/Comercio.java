@@ -15,5 +15,7 @@ public class Comercio extends BensPrototype {
 		setValorVenda(2300);
 		setRetorno(300);
 		setDespesaMensal(30);
+		setImagem("resources/imagens/Comercio.jpg");
+		setIcone("resources/imagens/Comercio_m.jpg");
 	}
 }

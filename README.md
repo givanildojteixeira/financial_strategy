@@ -1,4 +1,6 @@
-# Financial Strategy
+<h1 align="center"> # Financial Strategy </h1>
+  
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## Regras
 > É obrigatorio abrir uma conta corrente.
@@ -29,13 +31,13 @@ A partir de determinado ciclo, iniciam as despesas
     variáveis: despesas médicas.
 
 
-# Utilização de Padroes:
+# Utilização de Padroes GOF:
 
 CRIACIONAIS
 -   [x] Abstract Factory    - Utilizado o AbstractFactory para conectar com o Banco de Dados e oferecer as funcões de CRUD
 -   [x] Builder             - Utilizado para criação das Contas (Products)
 -   [x] Factory Method      - Utilizado para criação das Telas
--   [x] Protopype           - Utilizado para criação de Bens
+-   [x] Protopype           - Utilizado para criação de Bens e Aplicações
 -   [x] Singleton           - Utilizado para criação de Variaveis Globais 
 
 
