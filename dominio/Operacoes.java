@@ -166,7 +166,7 @@ public class Operacoes {
 		 * contas Pro recebem um bonus
 		 * contas Adm nao recebem nada
 		 */
-		System.out.println("Ciclo de contas Iniciado");
+		// System.out.println("Ciclo de contas Iniciado");
 		// soma o salário ao saldo
 		gravaSaldoConta(saldoDaConta() + 300);
 

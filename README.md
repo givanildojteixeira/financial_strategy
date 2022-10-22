@@ -31,14 +31,13 @@ A partir de determinado ciclo, iniciam as despesas
 
 # Utilização de Padroes:
 - Utilizado Builder para criação das Contas (Products)
-- Utilizado Factory Method para criação das Aplicações
-
-- Utilizado Factory Method para criação das Telas
-
+- Utilizado FactoryMethod para criação das Telas
 - Utilizado Prototype para criação de Bens
 - Utilizado Singleton para criação de Variaveis Globais IdentificadorDaConta - Global
 - Utilizado Singleton para criação de Variaveis Globais IdentificadorMovimento - Global
 - Utilizado o AbstractFactory para conectar com o Banco de Dados e oferecer as funcões de CRUD
+
+- Utilizado Template Method para criação das Aplicações
 - Utilizar o Observer para monitorar o numero de jogadas até o ciclo
 - Utilizar o Observer para randomizar jogadas onde o jogador perde dinheiro
 

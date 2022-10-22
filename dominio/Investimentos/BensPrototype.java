@@ -15,6 +15,7 @@ public abstract class BensPrototype {
 	public static final String FAZENDA = "Fazenda";
 	public static final String CASA = "Casa";
     public static final String COMERCIO = "Comercio";
+	
 	Ferramentas f = new Ferramentas();
 
 	public String getName() {

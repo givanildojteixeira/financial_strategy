@@ -149,15 +149,15 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		saldo = new JLabel();
 		saldo.setAlignmentX(3);
 		saldo.setFont(new Font("Serif", Font.BOLD, 20));
-		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
+		// saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
 		patrimonio = new JLabel();
 		patrimonio.setAlignmentX(3);
 		patrimonio.setFont(new Font("Serif", Font.BOLD, 20));
-		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
+		// patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite = new JLabel();
 		limite.setAlignmentX(3);
 		limite.setFont(new Font("Serif", Font.BOLD, 15));
-		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
+		// limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
 		limite.setForeground(Color.BLUE);
 		panel2.add(saldo);
 		panel2.add(patrimonio);
@@ -201,19 +201,19 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		fazendaM.setBounds(5, 135, 80, 80);
 		lblCasa.setBounds(75, 33, 400, 20);
 		lblCasa.setFont(new Font("Serif", Font.BOLD, 15));
-		lblCasa.setText("Você ainda não adquiriu essa propriedade");
+		// lblCasa.setText("Você ainda não adquiriu essa propriedade");
 		lblCasa.setForeground(Color.GRAY);
 		lblApartamento.setBounds(75, 75, 400, 20);
 		lblApartamento.setFont(new Font("Serif", Font.BOLD, 15));
-		lblApartamento.setText("Você ainda não adquiriu essa propriedade");
+		// lblApartamento.setText("Você ainda não adquiriu essa propriedade");
 		lblApartamento.setForeground(Color.GRAY);
 		lblComercio.setBounds(75, 120, 400, 20);
 		lblComercio.setFont(new Font("Serif", Font.BOLD, 15));
-		lblComercio.setText("Você ainda não adquiriu essa propriedade");
+		// lblComercio.setText("Você ainda não adquiriu essa propriedade");
 		lblComercio.setForeground(Color.GRAY);
 		lblFazenda.setBounds(75, 165, 400, 20);
 		lblFazenda.setFont(new Font("Serif", Font.BOLD, 15));
-		lblFazenda.setText("Você ainda não adquiriu essa propriedade");
+		// lblFazenda.setText("Você ainda não adquiriu essa propriedade");
 		lblFazenda.setForeground(Color.GRAY);
 		panel4.add(casaM);
 		panel4.add(lblCasa);
@@ -330,6 +330,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		if (v >= 50) {
 			// inicia um ciclo
 			o.ciclo();
+			atualizaTelaPrincipal();
 			v = 1;
 		}
 		// atualizar a tela
@@ -360,7 +361,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 					+ " D R$ " + o.getQuantidadeBem(q) * o.despesaDoBem(q);
 
 		} else {
-			r = "Você ainda nao possui essa propriedade!";
+			r = "Você ainda nao adquiriu essa propriedade!";
 		}
 
 		return r;
