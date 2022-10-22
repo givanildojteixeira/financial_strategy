@@ -30,12 +30,37 @@ A partir de determinado ciclo, iniciam as despesas
 
 
 # Utilização de Padroes:
-- Utilizado Builder para criação das Contas (Products)
-- Utilizado FactoryMethod para criação das Telas
-- Utilizado Prototype para criação de Bens
-- Utilizado Singleton para criação de Variaveis Globais IdentificadorDaConta - Global
-- Utilizado Singleton para criação de Variaveis Globais IdentificadorMovimento - Global
-- Utilizado o AbstractFactory para conectar com o Banco de Dados e oferecer as funcões de CRUD
+
+CRIACIONAIS
+-   [x] Abstract Factory    - Utilizado o AbstractFactory para conectar com o Banco de Dados e oferecer as funcões de CRUD
+-   [x] Builder             - Utilizado para criação das Contas (Products)
+-   [x] Factory Method      - Utilizado para criação das Telas
+-   [x] Protopype           - Utilizado para criação de Bens
+-   [x] Singleton           - Utilizado para criação de Variaveis Globais 
+
+
+ESTRUTURAIS
+-   [ ] Adapter
+-   [ ] Facade
+-   [ ] Bridge
+-   [ ] Decorator
+-   [ ] Flyweight
+-   [ ] Composite
+-   [ ] Proxy
+
+COMPORTAMENTAIS
+-   [ ] Chain of Responsability
+-   [ ] Command
+-   [ ] Interpreter
+-   [ ] Iterator
+-   [ ] Mediador
+-   [ ] Memento
+-   [ ] Observer
+-   [ ] State
+-   [ ] Strategy
+-   [ ] Template Method
+-   [ ] Visitor
+
 
 - Utilizado Template Method para criação das Aplicações
 - Utilizar o Observer para monitorar o numero de jogadas até o ciclo
@@ -44,12 +69,5 @@ A partir de determinado ciclo, iniciam as despesas
 
 trabalho a ser apresentado : Bridge
 
-Padroes de projeto 
-{} teste
-[]teste
-()teste
-{X} teste
-[X]teste
-(X)teste
 
 
