@@ -44,4 +44,12 @@ A partir de determinado ciclo, iniciam as despesas
 
 trabalho a ser apresentado : Bridge
 
+Padroes de projeto 
+{} teste
+[]teste
+()teste
+{X} teste
+[X]teste
+(X)teste
+
 
