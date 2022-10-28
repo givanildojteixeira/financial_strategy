@@ -1,24 +1,27 @@
 package bancoDados;
 
+import bancoDados.dbPropertiesFiles.IdFiles;
+
 public class FirebaseConnector extends ABSConnector{
 
-
 	@Override
-	public void createConnection() {
-		System.out.println("Conexão ao Firebase ainda nao programada");
+	public void createConnection(IdFiles id) {
+		// 
 		
 	}
 
 	@Override
-	public void grava(String chave, String valor) {
-
+	public void grava(String chave, String valor, IdFiles id) {
+		//
 		
 	}
 
 	@Override
-	public String le(String chave) {
-
-		return "";
+	public String le(String chave, IdFiles id) {
+		// 
+		return null;
 	}
+
+
 
 }

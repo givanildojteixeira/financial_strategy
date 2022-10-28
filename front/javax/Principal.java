@@ -21,13 +21,18 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import bancoDados.dbPropertiesFiles.IdFiles;
 import console.Ferramentas;
 import console.Global;
 import dominio.Operacoes;
+import front.CompraBens;
+import front.ContextOrder;
 
 public class Principal extends JFrame implements ActionListener, FacInterface, MouseListener {
-
+	
 	javax.swing.Timer timer;
+	
+	private ContextOrder corder = new ContextOrder(null);
 
 	JPanel panel1 = new JPanel();
 	JPanel panel2 = new JPanel();
@@ -75,6 +80,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	String nomedoBem = "", VlrCompra, VlrVenda;
 	int v = 1; // para controlar o ciclo
 
+
 	Principal() {
 		/*
 		 * Criação ou atualização da conta na entrada do sistema,
@@ -82,18 +88,18 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		 */
 
 		o.CriarConta(Global.USUARIO, "");
-		o.ConectarDB("");
-		o.GravarDB("Usuario", Global.USUARIO);
+		o.ConectarDB("",IdFiles.FileConfig);
+		o.GravarDB("Usuario", Global.USUARIO, IdFiles.FileConfig);
 		try {
 			// tenta carregar os dados do do usuario
-			Double s = o.leDBValor(Global.USUARIO + "-s");
+			Double s = o.leDBValor(Global.USUARIO + "-s", IdFiles.FileConfig);
 			o.gravaSaldoConta(s);
-			Double l = o.leDBValor(Global.USUARIO + "-l");
+			Double l = o.leDBValor(Global.USUARIO + "-l", IdFiles.FileConfig);
 			o.gravaLimiteConta(l);
-			Global.CASA = (int) o.leDBValor(Global.USUARIO + "-Casa-Quant");
-			Global.APARTAMENTO = (int) o.leDBValor(Global.USUARIO + "-Apartamento-Quant");
-			Global.COMERCIO = (int) o.leDBValor(Global.USUARIO + "-Comercio-Quant");
-			Global.FAZENDA = (int) o.leDBValor(Global.USUARIO + "-Fazenda-Quant");
+			Global.CASA = (int) o.leDBValor(Global.USUARIO + "-Casa-Quant", IdFiles.FileConfig);
+			Global.APARTAMENTO = (int) o.leDBValor(Global.USUARIO + "-Apartamento-Quant", IdFiles.FileConfig);
+			Global.COMERCIO = (int) o.leDBValor(Global.USUARIO + "-Comercio-Quant", IdFiles.FileConfig);
+			Global.FAZENDA = (int) o.leDBValor(Global.USUARIO + "-Fazenda-Quant", IdFiles.FileConfig);
 		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
 			o.gravaSaldoConta(o.saldoDaConta());
@@ -102,7 +108,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			// o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
 
-		setSize(800, 600);
+		setSize(1200, 600);
 		setLayout(null);
 		setVisible(true);
 		setTitle(Global.TITULO);
@@ -135,6 +141,11 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		fazenda.setToolTipText("Fazenda: " +
 				"Compra R$" + f.cMB(o.valorCompraBem("Fazenda")) +
 				" Venda R$" + f.cMB(o.valorVendaBem("Fazenda")));
+
+		acoes.addMouseListener(this);
+		fimob.addMouseListener(this);
+		frenda.addMouseListener(this);
+		poupan.addMouseListener(this);
 
 		// Panel1
 		panel1.setLayout(new FlowLayout());
@@ -226,7 +237,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 		// panel5
 		panel5.setLayout(new BorderLayout());
-		panel5.setBorder(BorderFactory.createTitledBorder("Minhas Aplicações"));
+		panel5.setBorder(BorderFactory.createTitledBorder("Minha Carteira de Ativos"));
 		panel5.setBounds(401, 282, 380, 200);
 		panel5.setBackground(Color.WHITE);
 
@@ -287,24 +298,47 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		}
 	}
 
+	private void atualizaTelaPrincipal() {
+		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
+		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
+		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
+
+		lblCasa.setText(qb("Casa"));
+		lblApartamento.setText(qb("Apartamento"));
+		lblComercio.setText(qb("Comercio"));
+		lblFazenda.setText(qb("Fazenda"));
+		repaint();
+	}
+
+	private String qb(String q) {
+		String r;
+		if (o.getQuantidadeBem(q) > 0) {
+			r = "Você possui "
+					+ o.getQuantidadeBem(q)
+					+ " R R$ " + o.getQuantidadeBem(q) * o.retornoDoBem(q)
+					+ " D R$ " + o.getQuantidadeBem(q) * o.despesaDoBem(q);
+
+		} else {
+			r = "Você ainda nao adquiriu essa propriedade!";
+		}
+
+		return r;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() == comprar) {
-			if (o.comprarBens(nomedoBem)) {
-				Global.MSGOK = true;
-				Global.MSG = "Parabéns!! Você acaba de adquirir um novo imovel!";
-				Global.MSG2 = "Valor da Compra R$" + VlrCompra;
-				FactoryMethodInterface.getModel("Mensagem");
-			} else {
-				Global.MSGOK = false;
-				Global.MSG = "Acho que não foi dessa vez, falta pouco!";
-				FactoryMethodInterface.getModel("Mensagem");
-				Global.MSG2 = "Valor do Bem R$" + VlrCompra;
-			}
+			o.comprarBens(nomedoBem);
+			corder.setOrderState(new CompraBens());	
+			corder.doWork(true);
+            // Global.MSG2 = "Valor do Bem R$" + o.valorCompraBem(nomedoBem);
 			atualizaTelaPrincipal();
+			FactoryMethodInterface.getModel("Mensagem");
 		}
 
 		if (e.getSource() == vender) {
+
 			Global.MSG2 = "Valor da Venda R$" + VlrVenda;
 
 		}
@@ -334,34 +368,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 	}
 
-	private void atualizaTelaPrincipal() {
-		saldo.setText("Saldo R$ " + f.cMB(o.saldoDaConta()));
-		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
-		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
-
-		lblCasa.setText(qb("Casa"));
-		lblApartamento.setText(qb("Apartamento"));
-		lblComercio.setText(qb("Comercio"));
-		lblFazenda.setText(qb("Fazenda"));
-		repaint();
-
-	}
-
-	private String qb(String q) {
-		String r;
-		if (o.getQuantidadeBem(q) > 0) {
-			r = "Você possui "
-					+ o.getQuantidadeBem(q)
-					+ " R R$ " + o.getQuantidadeBem(q) * o.retornoDoBem(q)
-					+ " D R$ " + o.getQuantidadeBem(q) * o.despesaDoBem(q);
-
-		} else {
-			r = "Você ainda nao adquiriu essa propriedade!";
-		}
-
-		return r;
-	}
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
@@ -377,20 +383,28 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			// Se caiu aqui é porque nao tem criando esse componente aida.
 		}
 
+
 		if (e.getSource() == casa) {
-			ben = new JLabel(new ImageIcon("resources/imagens/Casa.jpg"));
-			nomedoBem = "Casa";
+			Global.IMOVEL = "Casa";
 		} else if (e.getSource() == apartamento) {
-			ben = new JLabel(new ImageIcon("resources/imagens/Apartamento.jpg"));
-			nomedoBem = "Apartamento";
+			Global.IMOVEL = "Apartamento";
 		} else if (e.getSource() == comercio) {
-			ben = new JLabel(new ImageIcon("resources/imagens/Comercio.jpg"));
-			nomedoBem = "Comercio";
+			Global.IMOVEL = "Comercio";
 		} else if (e.getSource() == fazenda) {
-			ben = new JLabel(new ImageIcon("resources/imagens/Fazenda.jpg"));
-			nomedoBem = "Fazenda";
+			Global.IMOVEL = "Fazenda";
+		} else if (e.getSource() == acoes) {
+			Global.IMOVEL = "Acoes";
+		} else if (e.getSource() == fimob) {
+			Global.IMOVEL = "FundoImobiliario";
+		} else if (e.getSource() == frenda) {
+			Global.IMOVEL = "FundoRendaFixa";
+		} else if (e.getSource() == poupan) {
+			Global.IMOVEL = "Poupanca";
+
 		}
-		Global.IMOVEL = nomedoBem;
+		nomedoBem = Global.IMOVEL;
+		ben = new JLabel(new ImageIcon(o.imagemDoBem(nomedoBem)));
+
 		ben.setBounds(5, 35, 120, 120);
 		panel6.add(ben);
 		panelBen.setLayout(null);

@@ -1,9 +1,9 @@
-package Relatorios;
+package Relatorios.modelos;
 
 import console.Ferramentas;
 import dominio.ContaProduct;
 
-public class Extratos {
+public class ExtratosConta {
 	Ferramentas f = new Ferramentas();
 
 	public String getExtrato(ContaProduct contaProduct) {

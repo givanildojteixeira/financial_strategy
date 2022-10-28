@@ -2,14 +2,14 @@ package dominio;
 
 import java.util.*;
 import console.Ferramentas;
-import dominio.Investimentos.BensPrototype;
+// import dominio.Investimentos.BensPrototype;
 
 public class Banco {
 	private static Map<String, ContaProduct> contas = new HashMap<String, ContaProduct>();
 
 	ArrayList<Movimentacao> movimento = new ArrayList<Movimentacao>();
-	ArrayList<BensPrototype> bens = new ArrayList<BensPrototype>();
-	ArrayList<BensPrototype> aplicacoes = new ArrayList<BensPrototype>();
+	// ArrayList<BensPrototype> bens = new ArrayList<BensPrototype>();
+	// ArrayList<BensPrototype> aplicacoes = new ArrayList<BensPrototype>();
 	Ferramentas f = new Ferramentas();
 	public Banco() {
 	}

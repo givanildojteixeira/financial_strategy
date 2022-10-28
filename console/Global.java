@@ -13,6 +13,7 @@ package console;
   alterada em tempo de execução por qualquer objeto.
 */
 public class Global {
+
   public static final int TEMPOCICLO = 60;
   public static final String TITULO = "Financial Stategy";
   public static String USUARIO = "";

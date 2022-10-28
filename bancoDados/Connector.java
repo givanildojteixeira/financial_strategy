@@ -1,11 +1,13 @@
 package bancoDados;
 
+import bancoDados.dbPropertiesFiles.*;
+
 public class Connector {
 
 	public static DatabaseFactory DB;
 	static ABSConnector con;
 
-	public void connectar(String banco) {
+	public void connectar(String banco, IdFiles id) {
 
 		switch (banco) {
 			case "Firebase":
@@ -18,15 +20,16 @@ public class Connector {
 				break;
 		}
 		con = DB.createConnector();
-		con.createConnection();
+		con.createConnection(id);		
 	}
 
-	public static void gravar(String chave, String valor) {
-		con.grava(chave, valor);
+
+	public static void gravar(String chave, String valor, IdFiles id) {
+		con.grava(chave, valor, id);
 	}
 
-	public static String le(String chave) {
-		return con.le(chave);
+	public static String le(String chave, IdFiles id) {
+		return con.le(chave, id);
 	}
 
 }

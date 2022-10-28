@@ -1,12 +1,17 @@
 package bancoDados;
 
+import bancoDados.dbPropertiesFiles.IdFiles;
+
 public abstract class ABSConnector {
+    
+	public abstract void createConnection(IdFiles id);
 
-	public abstract void createConnection();
+    public abstract void grava(String chave, String valor, IdFiles id);
 
-    public abstract void grava(String chave, String valor);
+    public abstract String le(String chave, IdFiles id);
 
-    public abstract String le(String chave);
+
+
 
 	
 }

@@ -44,7 +44,7 @@ CRIACIONAIS
 ESTRUTURAIS
 -   [ ] Adapter
 -   [ ] Facade
--   [ ] Bridge
+-   [X] Bridge   - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador
 -   [ ] Decorator
 -   [ ] Flyweight
 -   [ ] Composite

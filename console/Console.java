@@ -3,6 +3,7 @@ package console;
 
 import java.util.Scanner;
 
+import bancoDados.dbPropertiesFiles.IdFiles;
 import dominio.Operacoes;
 import front.javax.FactoryMethodInterface;
 
@@ -26,9 +27,9 @@ public class Console {
 
     public void vintage() throws Exception {
         f.limpaConsole();
-        o.ConectarDB("");
+        o.ConectarDB("",IdFiles.FileConfig);
 
-        System.out.println(o.leDB("Usuario"));
+        System.out.println(o.leDB("Usuario",IdFiles.FileConfig));
 
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
@@ -43,10 +44,10 @@ public class Console {
         }
         Global.USUARIO = userName;
 
-        if (o.leDB("Usuario").equals(userName)) {
-            System.out.println("eita porra");
+        if (o.leDB("Usuario",IdFiles.FileConfig).equals(userName)) {
+            System.out.println("encontrei");
         } else {
-            o.GravarDB("Usuario", userName);
+            o.GravarDB("Usuario", userName,IdFiles.FileConfig);
             System.out.println("Tem senha para nivel Pro");
             String senha = sc.nextLine();
             if (senha == "contapro") {
@@ -81,7 +82,7 @@ public class Console {
                     o.ListaContas();
                     break;
                 case 1:
-                    o.extrato(1);
+                    // o.extrato(1);
 
                     break;
                 case 8:
