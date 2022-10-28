@@ -1,6 +1,4 @@
-Vamos escrever nesse novo arquivo em Java! que legal hahaha!!!
-
-Vamos escrever outra linha aqui embaixo hahaha!!!!!!!!GIVA-MOV-|D-Compra de Casa - R$ 1000.0
+GIVA-MOV-|D-Compra de Casa - R$ 1000.0
 GIVA-MOV-|D-Compra de Casa - R$ 1000.0
 GIVA-MOV-|D-Compra de Apartamento - R$ 2000.0
 GIVA-MOV-|D-Compra de Apartamento - R$ 2000.0

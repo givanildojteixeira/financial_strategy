@@ -51,7 +51,8 @@ ESTRUTURAIS
 -   [ ] Proxy
 
 COMPORTAMENTAIS
--   [ ] Chain of Responsability
+-   [X] Chain of Responsability - Recebe o pedido de gravação pelo DBProperties e faz uma OrdemResponsabilidade para gravar no arquivo correto c
+    com base na lista em IdFiles
 -   [ ] Command
 -   [ ] Interpreter
 -   [ ] Iterator
@@ -64,7 +65,7 @@ COMPORTAMENTAIS
 -   [ ] Visitor
 
 
-- Utilizado Template Method para criação das Aplicações
+
 - Utilizar o Observer para monitorar o numero de jogadas até o ciclo
 - Utilizar o Observer para randomizar jogadas onde o jogador perde dinheiro
 
