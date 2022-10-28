@@ -1,13 +1,12 @@
 package bancoDados.dbPropertiesFiles;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Properties;
-
-import bancoDados.DBPropertiesConnector;
+import java.io.PrintWriter;
 
 public class FileMovimento extends FileChain {
 
@@ -15,53 +14,52 @@ public class FileMovimento extends FileChain {
         super(IdFiles.FileMovimento);
     }
 
-    private String arquivo = "resources/movimento.properties";
-    private Properties prop = new Properties();
+    private String arquivo = "resources/movimento.txt";
 
     @Override
     public void createConnection() {
         // verifica se o arquivo existe
 
-        try (InputStream input = DBPropertiesConnector.class.getClassLoader().getResourceAsStream(arquivo)) {
-            if (input == null) {
-                OutputStream output = new FileOutputStream(arquivo);
-                prop.setProperty("db.url", "localhost");
-                prop.setProperty("db.banco", "properties");
-                prop.store(output, null);
-                return;
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        File a = new File(arquivo);
+        try {
+            if (!a.exists())
+                a.createNewFile();
+        } catch (IOException e) {
+            // exceção
         }
     }
 
     @Override
     public void gravar(String chave, String valor) {
-        try {
-            FileInputStream fis = new FileInputStream(arquivo);
-            prop.load(fis);
-            prop.setProperty(chave, valor);
-            FileOutputStream fos = new FileOutputStream(arquivo);
-            prop.store(fos, null);
-            fos.close();
+
+        try (FileWriter fw = new FileWriter(arquivo, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter out = new PrintWriter(bw)) {
+            out.println(chave + "|" + valor);
         } catch (IOException e) {
-            e.printStackTrace();
+            // exceção
         }
 
     }
 
-	@Override
-	public String ler(String chave) {
-		try {
-			FileInputStream fis = new FileInputStream(arquivo);
-			prop.load(fis);
-			String s = prop.getProperty(chave);
-			fis.close();
-			return s;
+    @Override
+    public String ler(String chave) {
+        try {
+            FileReader fr = new FileReader(arquivo);
+            BufferedReader br = new BufferedReader(fr);
+            // enquanto houver mais linhas
+            while (br.ready()) {
+                // lê a proxima linha
+                String linha = br.readLine();
+                // faz algo com a linha
+                System.out.println(linha);
+            }
+            br.close();
+            fr.close();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

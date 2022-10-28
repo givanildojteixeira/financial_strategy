@@ -17,16 +17,12 @@ public class DBPropertiesConnector extends ABSConnector {
 
 	@Override
 	public void createConnection(IdFiles id) {
-		// FileChain fileProperties = new FileConfig();
-		// fileProperties.setNext(new FileMovimento());
 		fileProperties = OrdemResponsabilidadeChain();
 		fileProperties.createConnection(id);
 	}
 
 	@Override
 	public void grava(String chave, String valor, IdFiles id) {
-		// FileChain fileProperties = new FileConfig();
-		// fileProperties.setNext(new FileMovimento());
 		fileProperties = OrdemResponsabilidadeChain();
 		fileProperties.grava(chave, valor, id);
 
@@ -34,8 +30,6 @@ public class DBPropertiesConnector extends ABSConnector {
 
 	@Override
 	public String le(String chave, IdFiles id) {
-		// FileChain fileProperties = new FileConfig();
-		// fileProperties.setNext(new FileMovimento());
 		fileProperties = OrdemResponsabilidadeChain();
 		return fileProperties.le(chave, id);
 	}
