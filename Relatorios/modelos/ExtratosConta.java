@@ -1,38 +1,46 @@
 package Relatorios.modelos;
 
+import Relatorios.GeradorDeRelatorios;
+import Relatorios.VisualizadorDeRelatorios;
 import console.Ferramentas;
-import dominio.ContaProduct;
+import dominio.Operacoes;
 
-public class ExtratosConta {
+public class ExtratosConta extends GeradorDeRelatorios {
 	Ferramentas f = new Ferramentas();
+	Operacoes o = new Operacoes();
 
-	public String getExtrato(ContaProduct contaProduct) {
+	public ExtratosConta(VisualizadorDeRelatorios visualizador) {
+		super(visualizador);
+	}
 
+	@Override
+	protected String gerarCabecalho() {
 		String extrato = "";
 		extrato += "-------------------------------\n";
-		extrato += "-    EXTRATO CONTA CORRENTE   -\n";
+		extrato += "-    SALDO CONTA CORRENTE   -\n";
 		extrato += "-------------------------------\n";
-		extrato += "Conta Nro: " + contaProduct.getNumero() + "\n";
-		extrato += "Cliente  : " + contaProduct.getNome() + "\n";
-		extrato += "Tipo Cta : " + contaProduct.getTipo() + "\n";
-		extrato += "Especial : " + contaProduct.getEspecial() + "\n";
-		// extrato += "-------------------------------\n";
-		// extrato += " MOVIMENTAÇÃO \n";
-		// extrato += "-------------------------------\n";
-		// extrato += "IdOp T VALOR DESCRICAO \n";
-		// extrato += getMovimento();
-		extrato += "-------------------------------\n";
-		extrato += "Descrição        | Valor (R$)\n";
-		// extrato += "-------------------------------\n";
-		extrato += "Saldo            | R$" + f.cMB(contaProduct.getSaldo()) + "\n";
-		extrato += "Limite           | R$" + f.cMB(contaProduct.getLimite()) + "\n";
-		// extrato += "Limite | R$" + converteMoedaBrasil(getSaldoComLimite() -
-		// getSaldo()) + "\n";
-		// extrato += "Saldo com Limite | R$" + converteMoedaBrasil(getSaldoComLimite())
-		// + "\n";
+		extrato += "Conta Nro: " + o.getNroconta() + "\n";
+		extrato += "Cliente  : " + o.getCliente() + "\n";
+		extrato += "Tipo Cta : " + o.getTipo() + "\n";
+		extrato += "Especial : " + o.getEstpecial() + "\n";
 		extrato += "-------------------------------\n";
 		return extrato;
 	}
 
+	@Override
+	protected String gerarConteudo() {
+		String extrato = "";
+		extrato += "Saldo            | R$" + f.cMB(o.getSaldo()) + "\n";
+		extrato += "Limite           | R$" + f.cMB(o.getLimite()) + "\n";
+		extrato += "-------------------------------\n";
+		return extrato;
+
+	}
+
+	@Override
+	protected void gerarVisualizacao(String cabecalho, String conteudo) {
+		this.visualizador.gerarVisualizacaoDoRelatorio(cabecalho, conteudo);
+
+	}
 
 }

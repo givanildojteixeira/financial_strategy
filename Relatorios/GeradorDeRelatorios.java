@@ -1,12 +1,5 @@
 package Relatorios;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import dominio.Movimentacao;
-
-
 public abstract class GeradorDeRelatorios {
 
 	/**
@@ -29,9 +22,9 @@ public abstract class GeradorDeRelatorios {
 	 * 
 	 * @param Movimentacao
 	 */
-	public final void gerarRelatorios(List<Movimentacao> movimento) {
+	public final void gerarRelatorios() {
 		String cabecalho = this.gerarCabecalho();
-		String conteudo = this.gerarConteudo(movimento);
+		String conteudo = this.gerarConteudo();
 		this.gerarVisualizacao(cabecalho, conteudo);
 	}
 
@@ -40,16 +33,12 @@ public abstract class GeradorDeRelatorios {
 	 * 
 	 * @return String cabeçalho
 	 */
-	protected String gerarCabecalho() {
-		SimpleDateFormat sdf = new SimpleDateFormat("d/M/y");
-		return new String(
-				"RELATORIO DE PRODUTOS VENDIDOS\n" + sdf.format(new Date()) + "\nBLSoft Sistemas Dev Corp.\n");
-	}
+	protected abstract String gerarCabecalho(); 
 
 	/**
 	 * Deixa a geração de conteúdo para as subclasses
 	 */
-	protected abstract String gerarConteudo(List<Movimentacao> movimento);
+	protected abstract String gerarConteudo();
 
 	/**
 	 * Deixa a visualização para as subclasses e ainda: cada subclasse vai (pode)

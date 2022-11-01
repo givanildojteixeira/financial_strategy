@@ -26,6 +26,11 @@ public class Global {
   public static int APARTAMENTO;
   public static int COMERCIO;
   public static int FAZENDA;
+  public static int ACOES;
+  public static int FUNDOIMOBILIARIO;
+  public static int FUNDORENDAFIXA;
+  public static int POUPANCA;
+
 
   public static class IdentificadorConta {
     private static final IdentificadorConta nroIdCta = new IdentificadorConta();
@@ -78,4 +83,5 @@ public class Global {
       return valorPatrimonio -= valor;
     }
   }
+
 }

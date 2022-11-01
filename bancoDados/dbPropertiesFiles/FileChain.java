@@ -49,9 +49,9 @@ public abstract class FileChain {
         if (podeEfetuar(id)) {
             return ler(chave);
         } else {
-            next.createConnection(id);
+            return next.ler(chave);
         }
-        return "";
+
     }
 
 }

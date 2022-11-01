@@ -2,6 +2,7 @@ package dominio;
 
 import bancoDados.Connector;
 import bancoDados.dbPropertiesFiles.IdFiles;
+import console.Ferramentas;
 import console.Global;
 import dominio.Investimentos.BensCache;
 import dominio.Investimentos.BensPrototype;
@@ -13,13 +14,14 @@ public class Operacoes {
 	Director c = new Director();
 	Banco b = new Banco();
 	Connector db = new Connector();
+	Ferramentas f  = new Ferramentas();
 
 	/*
 	 * =====> Operações com o Banco de Dados
 	 */
 
 	public void ConectarDB(String banco, IdFiles id) {
-		db.connectar(banco,id);
+		db.connectar(banco, id);
 	}
 
 	public void GravarDB(String chave, String valor, IdFiles id) {
@@ -35,7 +37,11 @@ public class Operacoes {
 	}
 
 	public double leDBValor(String chave, IdFiles id) {
-		return Double.parseDouble(Connector.le(chave, id));
+		String v = Connector.le(chave, id);
+		if (v == null) {
+			return 0;
+		}
+		return Double.parseDouble(v);
 	}
 
 	/*
@@ -58,8 +64,33 @@ public class Operacoes {
 		// sucesso!");
 	}
 
-	public void ListaContas() {
-		System.out.println(c.listaContas());
+	public String ListaContas() {
+		return (c.listaContas());
+	}
+
+	public int getNroconta() {
+		return 1;
+
+	}
+
+	public String getCliente() {
+		return Global.USUARIO;
+	}
+
+	public String getEstpecial() {
+		return "NAO";
+	}
+
+	public String getTipo() {
+		return "NORMAL";
+	}
+
+	public double getSaldo() {
+		return leDBValor(Global.USUARIO + "-s", IdFiles.FileConfig);
+	}
+
+	public double getLimite() {
+		return leDBValor(Global.USUARIO + "-l", IdFiles.FileConfig);
 	}
 
 	// public String extrato(int nroConta) {
@@ -92,7 +123,8 @@ public class Operacoes {
 	public boolean depositar(double valor, String descricao) {
 		c.getConta().depositar(valor);
 		gravaMovimentacao("C", descricao, valor);
-		// b.movimento.add(new Movimentacao(c.getConta().getNumero(), "C", descricao,
+		b.movimento.add(new Movimentacao(c.getConta().getNumero(), "C", descricao, valor));
+
 		// valor));
 		return true;
 	}
@@ -111,8 +143,8 @@ public class Operacoes {
 
 	public void gravaMovimentacao(String debitoCredito, String descricao, double valor) {
 		b.movimento.add(new Movimentacao(c.getConta().getNumero(), debitoCredito, descricao, valor));
-		//GRAVA NO ARQUIVO 
-		GravarDB(Global.USUARIO + "-MOV-", debitoCredito + "-" + descricao + " - R$ " + valor,IdFiles.FileMovimento);
+		// GRAVA NO ARQUIVO
+		GravarDB(Global.USUARIO + "-MOV-", debitoCredito + "-" + descricao + " - R$ " + valor, IdFiles.FileMovimento);
 	}
 
 	// public void transferir(int contaOrigem, int contaDestino, double valor) {
@@ -252,24 +284,39 @@ public class Operacoes {
 			case "Fazenda":
 				Global.FAZENDA = quant;
 				break;
+			case "Acoes":
+				Global.ACOES = quant;
+				break;
+			case "FundoImobiliario":
+				Global.FUNDOIMOBILIARIO = quant;
+				break;
+			case "FundoRendaFixa":
+				Global.FUNDORENDAFIXA = quant;
+				break;
+			case "Poupanca":
+				Global.POUPANCA = quant;
+				break;
 		}
-
 	}
 
 	public int getQuantidadeBem(String qual) {
 		switch (qual) {
 			case "Casa":
 				return Global.CASA;
-
 			case "Apartamento":
 				return Global.APARTAMENTO;
-
 			case "Comercio":
 				return Global.COMERCIO;
-
 			case "Fazenda":
 				return Global.FAZENDA;
-
+			case "Acoes":
+				return Global.ACOES;
+			case "FundoImobiliario":
+				return Global.FUNDOIMOBILIARIO;
+			case "FundoRendaFixa":
+				return Global.FUNDORENDAFIXA;
+			case "Poupanca":
+				return Global.POUPANCA;
 		}
 		return 0;
 	}
@@ -305,6 +352,20 @@ public class Operacoes {
 			GravarDBValor(Global.USUARIO + "-" + bem + "-Despesa", d + despesaDoBem(bem), IdFiles.FileConfig);
 		}
 		atualizaQuantidadeBem(bem, (int) (q + 1));
+	}
+	public String QualificaBem(String q) {
+		String r;
+		if (getQuantidadeBem(q) > 0) {
+			r = "["
+					+ getQuantidadeBem(q)
+					+ "] Cash R$ " + f.cMB(getQuantidadeBem(q) * retornoDoBem(q))
+					+ " Desp R$ " + f.cMB(getQuantidadeBem(q) * despesaDoBem(q));
+
+		} else {
+			r = "Você ainda não adquiriu esse item!";
+		}
+
+		return r;
 	}
 
 }

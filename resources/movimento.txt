@@ -2,3 +2,13 @@ GIVA-MOV-|D-Compra de Casa - R$ 1000.0
 GIVA-MOV-|D-Compra de Casa - R$ 1000.0
 GIVA-MOV-|D-Compra de Apartamento - R$ 2000.0
 GIVA-MOV-|D-Compra de Apartamento - R$ 2000.0
+GIVA-MOV-|D-Compra de Casa - R$ 1000.0
+GIVA-MOV-|D-Compra de Casa - R$ 1000.0
+GIVA-MOV-|D-Compra de Acoes - R$ 10.0
+GIVA-MOV-|D-Compra de Acoes - R$ 10.0
+GIVA-MOV-|D-Compra de FundoImobiliario - R$ 1000.0
+GIVA-MOV-|D-Compra de FundoImobiliario - R$ 1000.0
+GIVA-MOV-|D-Compra de FundoRendaFixa - R$ 800.0
+GIVA-MOV-|D-Compra de FundoRendaFixa - R$ 800.0
+GIVA-MOV-|D-Compra de Poupanca - R$ 100.0
+GIVA-MOV-|D-Compra de Poupanca - R$ 100.0

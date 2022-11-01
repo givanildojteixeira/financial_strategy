@@ -7,10 +7,6 @@ import console.Ferramentas;
 public class Banco {
 	private static Map<String, ContaProduct> contas = new HashMap<String, ContaProduct>();
 
-	ArrayList<Movimentacao> movimento = new ArrayList<Movimentacao>();
-	// ArrayList<BensPrototype> bens = new ArrayList<BensPrototype>();
-	// ArrayList<BensPrototype> aplicacoes = new ArrayList<BensPrototype>();
-	Ferramentas f = new Ferramentas();
 	public Banco() {
 	}
 
@@ -36,8 +32,10 @@ public class Banco {
 		return "";
 	}
 
-	public String listaContas() {
+
+	public  String listaContas() {
 		String ct = ""; 
+			Ferramentas f = new Ferramentas();
 		ct += "-------------------------------------------------------------------------\n";
 		for (String key : contas.keySet()) {
 			ct += String.format("|%03d|",contas.get(key).getNumero()) + " - " + 
@@ -48,6 +46,14 @@ public class Banco {
 		return ct += "-------------------------------------------------------------------------\n";
 	}
 
+	ArrayList<Movimentacao> movimento = new ArrayList<Movimentacao>();
+	// ArrayList<BensPrototype> bens = new ArrayList<BensPrototype>();
+	// ArrayList<BensPrototype> aplicacoes = new ArrayList<BensPrototype>();
+
+
+	public void InsereMovimentacao(Movimentacao m){
+		movimento.add(m);
+	}
 
  
 }

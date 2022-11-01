@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import front.javax.regra2;
+
 public class Ferramentas {
 	public String cMB(Double v) {
 		NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
@@ -43,5 +45,24 @@ public class Ferramentas {
 		} catch (Exception ex) {
 			return ("");
 		}
+	}
+	public String mid(String str, int start, int len){
+		// Make sure start and len are within proper bounds
+		String r="";
+		start = start -1;
+		if (start < 0 || len < 0) {
+			return "";
+		}
+	
+		int iEnd = 0;
+		int iLen = str.length();
+	
+		if (start + len > iLen)
+			iEnd = iLen;
+		else
+			iEnd = start + len;
+	
+		r= str.substring(start,iEnd);
+			return r ;
 	}
 }

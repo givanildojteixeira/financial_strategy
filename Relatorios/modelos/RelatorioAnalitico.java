@@ -1,50 +1,52 @@
 package Relatorios.modelos;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import Relatorios.GeradorDeRelatorios;
 import Relatorios.VisualizadorDeRelatorios;
+import bancoDados.dbPropertiesFiles.IdFiles;
+import console.Ferramentas;
+import console.Global;
 import dominio.Movimentacao;
+import dominio.Operacoes;
 
 public class RelatorioAnalitico extends GeradorDeRelatorios {
 
-	/**
-	 * Construtor recebendo o visualizador (que está na classe mae)
-	 * 
-	 * @param visualizador
-	 */
+    /**
+     * Construtor recebendo o visualizador (que está na classe mae)
+     * 
+     * @param visualizador
+     */
     public RelatorioAnalitico(VisualizadorDeRelatorios visualizador) {
-		super(visualizador);
-	}
+        super(visualizador);
+    }
 
-	@Override
-    protected String gerarCabecalho(){
-        SimpleDateFormat sdf = new SimpleDateFormat("H:m:s d/M/y G");
-        return new String(
-            "RELATORIO ANALÍTICO DE PRODUTOS VENDIDOS\n"+
-            sdf.format(new Date()) +
-            "\nBLSoft Sistemas Dev Corp.\n"
-        );
+    Ferramentas f = new Ferramentas();
+    Operacoes o = new Operacoes();
+
+    @Override
+    protected String gerarCabecalho() {
+        String extrato = "";
+        extrato += "----------------------------------------------\n";
+        extrato += "-           EXTRATO MOVIMENTAÇOES            -\n";
+        extrato += "----------------------------------------------\n";
+        extrato += "Conta Nro: " + o.getNroconta() + "\n";
+        extrato += "Cliente  : " + o.getCliente() + "\n";
+        extrato += "----------------------------------------------\n";
+        return extrato;
     }
 
     @Override
-    protected String gerarConteudo(List<Movimentacao> movimento) {
-        StringBuilder conteudo = new StringBuilder();
-        double totalProdutos = 0;
-        conteudo.append("\nMOVIMENTO\n");
-        for (Movimentacao movimentacao : movimento) {
-            conteudo.append(movimentacao.getDescricao()+ "\n");
-            // conteudo.append(produto.getNome() + "R$ " + produto.getPreco() + "\n");
-        }
-        conteudo.append("\nTOTAL EM R$" + totalProdutos);
-        return conteudo.toString();
+    protected String gerarConteudo() {
+        return o.leDB(Global.USUARIO + "-MOV-|", IdFiles.FileMovimento);
     }
 
     @Override
     protected void gerarVisualizacao(String cabecalho, String conteudo) {
         this.visualizador.gerarVisualizacaoDoRelatorio(cabecalho, conteudo);
     }
-    
+
 }

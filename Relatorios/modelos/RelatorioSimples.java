@@ -1,10 +1,15 @@
 package Relatorios.modelos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Relatorios.GeradorDeRelatorios;
 import Relatorios.VisualizadorDeRelatorios;
+import console.Ferramentas;
 import dominio.Movimentacao;
+import dominio.Operacoes;
+import dominio.Investimentos.BensCache;
+import dominio.Investimentos.BensPrototype;
 
 public class RelatorioSimples extends GeradorDeRelatorios {
 
@@ -17,20 +22,39 @@ public class RelatorioSimples extends GeradorDeRelatorios {
 		super(visualizador);
 	}
 
+	Ferramentas f = new Ferramentas();
+	Operacoes o = new Operacoes();
+	
 	@Override
-	protected String gerarConteudo(List<Movimentacao> mov) {
-		double totalProduto = 0;
+	protected String gerarConteudo() {
 		StringBuilder conteudo = new StringBuilder();
-		// for (Movimentacao produto : mov) {
-		// 	totalProduto += 1;
-		// }
-		conteudo.append("QUANTIDADE VENDIDA: " + mov.size());
-		conteudo.append("\nTOTAL VENDIDO: " + totalProduto);
+		conteudo.append("Casa       : " + o.QualificaBem("Casa") + "\n");
+		conteudo.append("Apartamento: " + o.QualificaBem("Apartamento")+ "\n");
+		conteudo.append("Comercio   : " + o.QualificaBem("Comercio")+ "\n");
+		conteudo.append("Fazenda    : " + o.QualificaBem("Fazenda")+ "\n");
+
+		conteudo.append("Acoes      : " + o.QualificaBem("Acoes")+ "\n");
+		conteudo.append("FundoImobi.: " + o.QualificaBem("FundoImobiliario")+ "\n");
+		conteudo.append("FundoRendaF: " + o.QualificaBem("FundoRendaFixa")+ "\n");
+		conteudo.append("Poupanca   : " + o.QualificaBem("Poupanca")+ "\n");
+
 		return conteudo.toString();
 	}
 
 	@Override
 	protected void gerarVisualizacao(String cabecalho, String conteudo) {
 		this.visualizador.gerarVisualizacaoDoRelatorio(cabecalho, conteudo);
+	}
+
+	@Override
+	protected String gerarCabecalho() {
+		String extrato = "";
+		extrato += "----------------------------------------------\n";
+		extrato += "-           EXTRATO PATRIMONIO               -\n";
+		extrato += "----------------------------------------------\n";
+		extrato += "Conta Nro: " + o.getNroconta() + "\n";
+		extrato += "Cliente  : " + o.getCliente() + "\n";
+		extrato += "----------------------------------------------\n";
+		return extrato;
 	}
 }

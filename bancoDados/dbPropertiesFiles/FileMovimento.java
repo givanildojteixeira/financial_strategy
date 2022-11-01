@@ -8,7 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import console.Ferramentas;
+
 public class FileMovimento extends FileChain {
+
+    Ferramentas f = new Ferramentas();
 
     public FileMovimento() {
         super(IdFiles.FileMovimento);
@@ -45,6 +49,7 @@ public class FileMovimento extends FileChain {
     @Override
     public String ler(String chave) {
         try {
+            String s = "";
             FileReader fr = new FileReader(arquivo);
             BufferedReader br = new BufferedReader(fr);
             // enquanto houver mais linhas
@@ -52,10 +57,12 @@ public class FileMovimento extends FileChain {
                 // lê a proxima linha
                 String linha = br.readLine();
                 // faz algo com a linha
-                System.out.println(linha);
+                if (f.mid(linha, 1, chave.length()).equals(chave))
+                    s += f.mid(linha, chave.length()+1, linha.length()+1 - chave.length()) + "\n";
             }
             br.close();
             fr.close();
+            return s;
 
         } catch (IOException e) {
             e.printStackTrace();

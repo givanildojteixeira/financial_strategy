@@ -9,6 +9,7 @@ import dominio.Investimentos.Aplicacoes.Poupanca;
 import dominio.Investimentos.Bens.*;
 
 public class BensCache {
+
 	private static Hashtable<String, BensPrototype> forms = new Hashtable<String, BensPrototype>();
 
 	public static BensPrototype getForm(String id) {

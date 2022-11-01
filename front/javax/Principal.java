@@ -10,10 +10,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +23,9 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import Relatorios.BridgeRelatorios;
+import Relatorios.IdRelatorios;
+import Relatorios.IdVisualizadores;
 import bancoDados.dbPropertiesFiles.IdFiles;
 import console.Ferramentas;
 import console.Global;
@@ -29,9 +34,9 @@ import front.CompraBens;
 import front.ContextOrder;
 
 public class Principal extends JFrame implements ActionListener, FacInterface, MouseListener {
-	
+
 	javax.swing.Timer timer;
-	
+
 	private ContextOrder corder = new ContextOrder(null);
 
 	JPanel panel1 = new JPanel();
@@ -44,6 +49,9 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JPanel panelRelogio = new JPanel();
 	JPanel panelCiclo = new JPanel();
 	JPanel panelLogo = new JPanel();
+	JPanel panelGrAp = new JPanel();
+	JPanel panelGrBe = new JPanel();
+	JPanel panelRel = new JPanel();
 
 	JLabel ben = new JLabel();
 	JLabel horario = new JLabel();
@@ -52,13 +60,17 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel lblApartamento = new JLabel();
 	JLabel lblComercio = new JLabel();
 	JLabel lblFazenda = new JLabel();
+	JLabel lblacoes = new JLabel();
+	JLabel lblfimob = new JLabel();
+	JLabel lblfrenda = new JLabel();
+	JLabel lblpoupan = new JLabel();
 
 	JProgressBar prbConta = new JProgressBar();
 
 	Operacoes o = new Operacoes();
 	Ferramentas f = new Ferramentas();
 	// Declara Componentes
-	JButton comprar, vender, investir;
+	JButton comprar, vender, investir, btnOkRel;
 	JLabel investidor, saldo, limite, patrimonio, sub1, sub2, compra, venda, despesa, receita;
 	JTextArea text = new JTextArea();
 	JLabel casa = new JLabel(new ImageIcon(o.imagemDoBem("Casa")));
@@ -74,12 +86,18 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	JLabel fimob = new JLabel(new ImageIcon(o.imagemDoBem("FundoImobiliario")));
 	JLabel frenda = new JLabel(new ImageIcon(o.imagemDoBem("FundoRendaFixa")));
 	JLabel poupan = new JLabel(new ImageIcon(o.imagemDoBem("Poupanca")));
+	JLabel acoesM = new JLabel(new ImageIcon(o.iconeDoBem("Acoes")));
+	JLabel fimobM = new JLabel(new ImageIcon(o.iconeDoBem("FundoImobiliario")));
+	JLabel frendaM = new JLabel(new ImageIcon(o.iconeDoBem("FundoRendaFixa")));
+	JLabel poupanM = new JLabel(new ImageIcon(o.iconeDoBem("Poupanca")));
 
 	JLabel logo = new JLabel(new ImageIcon("resources/imagens/MiniLogo.jpg"));
 
 	String nomedoBem = "", VlrCompra, VlrVenda;
-	int v = 1; // para controlar o ciclo
+	JComboBox<String> cb;
+	JComboBox<String> cbv;
 
+	int v = 1; // para controlar o ciclo
 
 	Principal() {
 		/*
@@ -88,7 +106,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		 */
 
 		o.CriarConta(Global.USUARIO, "");
-		o.ConectarDB("",IdFiles.FileConfig);
+		o.ConectarDB("", IdFiles.FileConfig);
 		o.GravarDB("Usuario", Global.USUARIO, IdFiles.FileConfig);
 		try {
 			// tenta carregar os dados do do usuario
@@ -100,6 +118,11 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			Global.APARTAMENTO = (int) o.leDBValor(Global.USUARIO + "-Apartamento-Quant", IdFiles.FileConfig);
 			Global.COMERCIO = (int) o.leDBValor(Global.USUARIO + "-Comercio-Quant", IdFiles.FileConfig);
 			Global.FAZENDA = (int) o.leDBValor(Global.USUARIO + "-Fazenda-Quant", IdFiles.FileConfig);
+			Global.ACOES = (int) o.leDBValor(Global.USUARIO + "-Acoes-Quant", IdFiles.FileConfig);
+			Global.FUNDOIMOBILIARIO = (int) o.leDBValor(Global.USUARIO + "-FundoImobiliario-Quant", IdFiles.FileConfig);
+			Global.FUNDORENDAFIXA = (int) o.leDBValor(Global.USUARIO + "-FundoRendaFixa-Quant", IdFiles.FileConfig);
+			Global.POUPANCA = (int) o.leDBValor(Global.USUARIO + "-Poupanca-Quant", IdFiles.FileConfig);
+				
 		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
 			o.gravaSaldoConta(o.saldoDaConta());
@@ -236,10 +259,34 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		panel4.add(lblFazenda);
 
 		// panel5
-		panel5.setLayout(new BorderLayout());
+		panel5.setLayout(null);
 		panel5.setBorder(BorderFactory.createTitledBorder("Minha Carteira de Ativos"));
 		panel5.setBounds(401, 282, 380, 200);
 		panel5.setBackground(Color.WHITE);
+		acoesM.setBounds(15, 15, 50, 50);
+		frendaM.setBounds(8, 55, 60, 60);
+		fimobM.setBounds(14, 105, 50, 50);
+		poupanM.setBounds(5, 135, 80, 80);
+		lblacoes.setBounds(75, 33, 400, 20);
+		lblacoes.setFont(new Font("Serif", Font.BOLD, 15));
+		lblacoes.setForeground(Color.GRAY);
+		lblfimob.setBounds(75, 75, 400, 20);
+		lblfimob.setFont(new Font("Serif", Font.BOLD, 15));
+		lblfimob.setForeground(Color.GRAY);
+		lblfrenda.setBounds(75, 120, 400, 20);
+		lblfrenda.setFont(new Font("Serif", Font.BOLD, 15));
+		lblfrenda.setForeground(Color.GRAY);
+		lblpoupan.setBounds(75, 165, 400, 20);
+		lblpoupan.setFont(new Font("Serif", Font.BOLD, 15));
+		lblpoupan.setForeground(Color.GRAY);
+		panel5.add(acoesM);
+		panel5.add(lblacoes);
+		panel5.add(fimobM);
+		panel5.add(lblfimob);
+		panel5.add(frendaM);
+		panel5.add(lblfrenda);
+		panel5.add(poupanM);
+		panel5.add(lblpoupan);
 
 		// panel6
 		panel6.setLayout(null);
@@ -261,14 +308,46 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		horario.setHorizontalAlignment(SwingConstants.CENTER);
 		horario.setForeground(Color.GREEN);
 
+		// panelRel.setLayout(new BorderLayout());
+		panelRel.setBorder(BorderFactory.createTitledBorder("Selecione o relatorio e a forma de visualização:"));
+		panelRel.setBounds(581, 480, 500, 80);
+		panelRel.setBackground(Color.WHITE);
+		JLabel lbl = new JLabel("Relatório: ");
+		lbl.setVisible(true);
+		panelRel.add(lbl);
+		String[] relatorio = Stream.of(IdRelatorios.values()).map(IdRelatorios::name).toArray(String[]::new); 
+		cb = new JComboBox<String>(relatorio);
+		cb.setVisible(true);
+		panelRel.add(cb);
+		JLabel lbl2 = new JLabel("Visualizador: ");
+		lbl2.setVisible(true);
+		panelRel.add(lbl2);
+		String[] visual = Stream.of(IdVisualizadores.values()).map(IdVisualizadores::name).toArray(String[]::new); 
+		cbv = new JComboBox<String>(visual);
+		cbv.setVisible(true);
+		panelRel.add(cbv);
+		btnOkRel = new JButton("OK");
+		btnOkRel.addActionListener(this);
+		panelRel.add(btnOkRel);
+
 		panelLogo.setLayout(new BorderLayout());
-		panelLogo.setBorder(BorderFactory.createTitledBorder(" "));
-		panelLogo.setBounds(581, 480, 200, 80);
+		panelLogo.setBorder(BorderFactory.createTitledBorder(";)"));
+		panelLogo.setBounds(781, 0, 300, 80);
 		panelLogo.setBackground(Color.WHITE);
 
 		prbConta.setMinimum(0);
 		prbConta.setMaximum(Global.TEMPOCICLO + 1);
 		prbConta.setStringPainted(true);
+
+		panelGrBe.setLayout(null);
+		panelGrBe.setBorder(BorderFactory.createTitledBorder("Mercado Imobiliário"));
+		panelGrBe.setBounds(781, 82, 300, 200);
+		panelGrBe.setBackground(Color.WHITE);
+
+		panelGrAp.setLayout(null);
+		panelGrAp.setBorder(BorderFactory.createTitledBorder("Bolsa de Valores"));
+		panelGrAp.setBounds(781, 282, 300, 200);
+		panelGrAp.setBackground(Color.WHITE);
 
 		add(panel1);
 		add(panel2);
@@ -283,6 +362,9 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 		add(panelLogo);
 		panelLogo.add(logo);
+		add(panelRel);
+		add(panelGrBe);
+		add(panelGrAp);
 		disparaRelogio();
 		atualizaTelaPrincipal();
 		repaint();
@@ -303,36 +385,27 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		patrimonio.setText(" |  Patrimonio R$ " + f.cMB(o.limiteDaConta()));
 		limite.setText("Limite R$ " + f.cMB(o.limiteDaConta()));
 
-		lblCasa.setText(qb("Casa"));
-		lblApartamento.setText(qb("Apartamento"));
-		lblComercio.setText(qb("Comercio"));
-		lblFazenda.setText(qb("Fazenda"));
+		lblCasa.setText(o.QualificaBem("Casa"));
+		lblApartamento.setText(o.QualificaBem("Apartamento"));
+		lblComercio.setText(o.QualificaBem("Comercio"));
+		lblFazenda.setText(o.QualificaBem("Fazenda"));
+
+		lblacoes.setText(o.QualificaBem("Acoes"));
+		lblfimob.setText(o.QualificaBem("FundoImobiliario"));
+		lblfrenda.setText(o.QualificaBem("FundoRendaFixa"));
+		lblpoupan.setText(o.QualificaBem("Poupanca"));
 		repaint();
 	}
 
-	private String qb(String q) {
-		String r;
-		if (o.getQuantidadeBem(q) > 0) {
-			r = "Você possui "
-					+ o.getQuantidadeBem(q)
-					+ " R R$ " + o.getQuantidadeBem(q) * o.retornoDoBem(q)
-					+ " D R$ " + o.getQuantidadeBem(q) * o.despesaDoBem(q);
-
-		} else {
-			r = "Você ainda nao adquiriu essa propriedade!";
-		}
-
-		return r;
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == comprar) {
 			o.comprarBens(nomedoBem);
-			corder.setOrderState(new CompraBens());	
+			corder.setOrderState(new CompraBens());
 			corder.doWork(true);
-            // Global.MSG2 = "Valor do Bem R$" + o.valorCompraBem(nomedoBem);
+			// Global.MSG2 = "Valor do Bem R$" + o.valorCompraBem(nomedoBem);
 			atualizaTelaPrincipal();
 			FactoryMethodInterface.getModel("Mensagem");
 		}
@@ -345,6 +418,13 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		if (e.getSource() == investir) {
 
 		}
+
+		if (e.getSource() == btnOkRel){
+			BridgeRelatorios r = new BridgeRelatorios();
+			r.GerarRelatorio(cb.getSelectedItem()+"",cbv.getSelectedItem()+"");
+		}
+
+
 		// geral
 		Date hora = new Date();
 		SimpleDateFormat hora_formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -382,7 +462,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		} catch (Exception componenteAindaNaoCriado) {
 			// Se caiu aqui é porque nao tem criando esse componente aida.
 		}
-
 
 		if (e.getSource() == casa) {
 			Global.IMOVEL = "Casa";
