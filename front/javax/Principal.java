@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
@@ -122,7 +123,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			Global.FUNDOIMOBILIARIO = (int) o.leDBValor(Global.USUARIO + "-FundoImobiliario-Quant", IdFiles.FileConfig);
 			Global.FUNDORENDAFIXA = (int) o.leDBValor(Global.USUARIO + "-FundoRendaFixa-Quant", IdFiles.FileConfig);
 			Global.POUPANCA = (int) o.leDBValor(Global.USUARIO + "-Poupanca-Quant", IdFiles.FileConfig);
-				
+
 		} catch (Exception e) {
 			// ops, é usuario novo, gravo os dados iniciais
 			o.gravaSaldoConta(o.saldoDaConta());
@@ -131,7 +132,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			// o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
 
-		setSize(1200, 600);
+		setSize(1100, 600);
 		setLayout(null);
 		setVisible(true);
 		setTitle(Global.TITULO);
@@ -315,14 +316,14 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		JLabel lbl = new JLabel("Relatório: ");
 		lbl.setVisible(true);
 		panelRel.add(lbl);
-		String[] relatorio = Stream.of(IdRelatorios.values()).map(IdRelatorios::name).toArray(String[]::new); 
+		String[] relatorio = Stream.of(IdRelatorios.values()).map(IdRelatorios::name).toArray(String[]::new);
 		cb = new JComboBox<String>(relatorio);
 		cb.setVisible(true);
 		panelRel.add(cb);
 		JLabel lbl2 = new JLabel("Visualizador: ");
 		lbl2.setVisible(true);
 		panelRel.add(lbl2);
-		String[] visual = Stream.of(IdVisualizadores.values()).map(IdVisualizadores::name).toArray(String[]::new); 
+		String[] visual = Stream.of(IdVisualizadores.values()).map(IdVisualizadores::name).toArray(String[]::new);
 		cbv = new JComboBox<String>(visual);
 		cbv.setVisible(true);
 		panelRel.add(cbv);
@@ -353,6 +354,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		add(panel2);
 		add(panel3);
 		add(panel4);
+
 		add(panel5);
 		add(panel6);
 		add(panelCiclo);
@@ -394,9 +396,13 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		lblfimob.setText(o.QualificaBem("FundoImobiliario"));
 		lblfrenda.setText(o.QualificaBem("FundoRendaFixa"));
 		lblpoupan.setText(o.QualificaBem("Poupanca"));
+		Random random = new Random();
+		ColocaGrafico(panelGrBe, "Casa", random.nextInt(100),
+				"Apto.", random.nextInt(100),
+				"Comercio", random.nextInt(100),
+				"Fazenda", random.nextInt(100));
 		repaint();
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -405,7 +411,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			o.comprarBens(nomedoBem);
 			corder.setOrderState(new CompraBens());
 			corder.doWork(true);
-			// Global.MSG2 = "Valor do Bem R$" + o.valorCompraBem(nomedoBem);
 			atualizaTelaPrincipal();
 			FactoryMethodInterface.getModel("Mensagem");
 		}
@@ -419,11 +424,10 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 		}
 
-		if (e.getSource() == btnOkRel){
+		if (e.getSource() == btnOkRel) {
 			BridgeRelatorios r = new BridgeRelatorios();
-			r.GerarRelatorio(cb.getSelectedItem()+"",cbv.getSelectedItem()+"");
+			r.GerarRelatorio(cb.getSelectedItem() + "", cbv.getSelectedItem() + "");
 		}
-
 
 		// geral
 		Date hora = new Date();
@@ -442,8 +446,13 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			atualizaTelaPrincipal();
 			v = 1;
 		}
-		// atualizar a tela
-		// atualizaTelaPrincipal();
+		//
+		Random random = new Random();
+		ColocaGrafico(panelGrAp, "Açoes", random.nextInt(100),
+				"F.Imobil", random.nextInt(100),
+				"F.R.Fixo", random.nextInt(100),
+				"Poupança", random.nextInt(100));
+		//
 		repaint();
 
 	}
@@ -546,6 +555,23 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 	public void mouseExited(MouseEvent e) {
 		// mouse fora do item
 
+	}
+
+	public void ColocaGrafico(JPanel p,
+			String item1, int vItem1,
+			String item2, int vItem2,
+			String item3, int vItem3,
+			String item4, int vItem4) {
+		// cria painel para desenhar grafico
+		final Graficos desenhando = new Graficos();
+		desenhando.setTitulos(" ", " ",
+				"Variação Mercado");
+		desenhando.setParametros(vItem1, item1);
+		desenhando.setParametros(vItem2, item2);
+		desenhando.setParametros(vItem3, item3);
+		desenhando.setParametros(vItem4, item4);
+		desenhando.setBounds(0, 0, 300, 200);
+		p.add(desenhando);
 	}
 
 }

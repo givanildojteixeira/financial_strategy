@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import front.javax.regra2;
-
 public class Ferramentas {
 	public String cMB(Double v) {
 		NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
@@ -24,9 +22,6 @@ public class Ferramentas {
 	public void limpaConsole() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
-		// DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		// System.out.printlnSTART >============================================== " +
-		// dtf.format(LocalDateTime.now()));
 	}
 
 	public String calcularDiferencaHoras(String horaInicial, String horaFinal) {

@@ -1,16 +1,10 @@
 package Relatorios.modelos;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import Relatorios.GeradorDeRelatorios;
 import Relatorios.VisualizadorDeRelatorios;
 import bancoDados.dbPropertiesFiles.IdFiles;
 import console.Ferramentas;
 import console.Global;
-import dominio.Movimentacao;
 import dominio.Operacoes;
 
 public class RelatorioAnalitico extends GeradorDeRelatorios {

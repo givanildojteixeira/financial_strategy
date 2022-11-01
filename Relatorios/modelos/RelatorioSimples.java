@@ -1,15 +1,9 @@
 package Relatorios.modelos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import Relatorios.GeradorDeRelatorios;
 import Relatorios.VisualizadorDeRelatorios;
 import console.Ferramentas;
-import dominio.Movimentacao;
 import dominio.Operacoes;
-import dominio.Investimentos.BensCache;
-import dominio.Investimentos.BensPrototype;
 
 public class RelatorioSimples extends GeradorDeRelatorios {
 
