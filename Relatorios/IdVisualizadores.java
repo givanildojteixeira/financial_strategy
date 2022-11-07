@@ -3,6 +3,7 @@ package Relatorios;
 public enum IdVisualizadores {
     CONSOLE("Console"),
     TELA("Tela");
+    
 
     private String idVisualizadores;
 

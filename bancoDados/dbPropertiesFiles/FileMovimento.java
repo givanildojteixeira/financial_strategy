@@ -13,12 +13,14 @@ import console.Ferramentas;
 public class FileMovimento extends FileChain {
 
     Ferramentas f = new Ferramentas();
+    private String arquivo;
 
     public FileMovimento() {
         super(IdFiles.FileMovimento);
+		IdFiles s = IdFiles.FileMovimento;
+		arquivo = s.getArquivo();
     }
 
-    private String arquivo = "resources/movimento.txt";
 
     @Override
     public void createConnection() {

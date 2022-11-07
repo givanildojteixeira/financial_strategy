@@ -15,6 +15,7 @@ public class VisualizacaoGUI implements VisualizadorDeRelatorios{
     public void gerarVisualizacaoDoRelatorio(String cabecalho, String conteudo) {
     	JFrame frame = new JFrame("Relatorio");
     	frame.setSize(new Dimension(500,500));
+		frame.setLocationRelativeTo(null);
     	JTextArea jTextArea = new JTextArea();
 		jTextArea.setFont(new Font("Courier New", Font.BOLD, 15));
     	jTextArea.append(cabecalho);

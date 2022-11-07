@@ -30,12 +30,12 @@ public class Graficos extends JPanel {
 
         // desenha linha horizontal
         g.setColor(Color.BLACK);
-        g.drawLine(margem, altura + margem, tamanhoLinha, altura + margem);
+        g.drawLine(margem , altura + margem, tamanhoLinha, altura + margem);
 
         for (int i = 0; i < rotulos.size(); i++) {
             // desenha valores
             g.setColor(Color.BLACK);
-            g.drawString(rotulos.get(i), i * espaco + 60, altura + 25);
+            g.drawString(rotulos.get(i), i * espaco + 30, altura + 25);
 
             // desenha tracos da linha horizontal
             g.drawLine((i + 1) * espaco + 25, altura + margem,
@@ -50,7 +50,7 @@ public class Graficos extends JPanel {
             g.setColor(Color.BLUE);
             switch (tipoGrafico) {
                 case 0: // grafico em colunas
-                    g.fillRect((i + 1) * espaco+ 15, (altura + margem) - valor,
+                    g.fillRect((i + 1) * espaco+ 05, (altura + margem) - valor,
                             20, valor);
                     break;
                 case 1: // grafico em linha
@@ -70,7 +70,7 @@ public class Graficos extends JPanel {
         // titulo do grafico
         g.setColor(Color.BLACK);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-        g.drawString(tituloGrafico, margem, margem);
+        g.drawString(tituloGrafico, margem+20, margem +20);
 
         // titulo horizontal
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));

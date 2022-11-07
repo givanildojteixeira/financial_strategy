@@ -10,13 +10,19 @@ import java.util.Properties;
 import bancoDados.DBPropertiesConnector;
 
 public class FileConfig extends FileChain {
+	protected String arquivo;
+	private Properties prop = new Properties();
 
 	public FileConfig() {
 		super(IdFiles.FileConfig);
+		IdFiles s = IdFiles.FileConfig;
+		arquivo = s.getArquivo();
 	}
 
-	private String arquivo = "resources/config.properties";
-	private Properties prop = new Properties();
+	//se caiu para esse arquivo, então
+	//acrescente a funcionalidade de codificação
+	private FileConfigDecorator fcd = new FileConfigDecorator();
+
 
 	@Override
 	public void createConnection() {
@@ -40,6 +46,9 @@ public class FileConfig extends FileChain {
 		try {
 			FileInputStream fis = new FileInputStream(arquivo);
 			prop.load(fis);
+			
+			valor = fcd.Codifica(valor);
+
 			prop.setProperty(chave, valor);
 			FileOutputStream fos = new FileOutputStream(arquivo);
 			prop.store(fos, null);
@@ -47,7 +56,6 @@ public class FileConfig extends FileChain {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -57,6 +65,7 @@ public class FileConfig extends FileChain {
 			prop.load(fis);
 			String s = prop.getProperty(chave);
 			fis.close();
+			s = fcd.Decodifica(s);
 			return s;
 
 		} catch (IOException e) {

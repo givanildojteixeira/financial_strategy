@@ -44,15 +44,14 @@ CRIACIONAIS
 ESTRUTURAIS
 -   [ ] Adapter
 -   [ ] Facade
--   [X] Bridge   - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador
--   [ ] Decorator
+-   [X] Bridge   - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador (Arquivos usados: BridgeRelatorios +          VisualizadorDeRelatorios + GeradorDeRelatorios)
+-   [x] Decorator - Usado para acrescentar uma codificação a informação que será lida ou gravada no arquivo FileConfig, para que ela nao seja gravada como texto puro podendo ser alterada manualmente. (Arquivos usados: Base64Decorator + FileConfigDecorator)
 -   [ ] Flyweight
 -   [ ] Composite
 -   [ ] Proxy
 
 COMPORTAMENTAIS
--   [X] Chain of Responsability - Recebe o pedido de gravação pelo DBProperties e faz uma OrdemResponsabilidade para gravar no arquivo correto c
-    com base na lista em IdFiles
+-   [X] Chain of Responsability - Recebe o pedido de gravação pelo DBProperties e faz uma OrdemResponsabilidade para gravar no arquivo correto com base na lista em IdFiles (Arquivos usados: FileChain, IdFiles, FileConfig e FileMovimento)
 -   [ ] Command
 -   [ ] Interpreter
 -   [ ] Iterator
@@ -70,7 +69,8 @@ COMPORTAMENTAIS
 - Utilizar o Observer para randomizar jogadas onde o jogador perde dinheiro
 
 
-trabalho a ser apresentado : Bridge
+Operaçoes.gravar manda o comando para o Connector(Abstract Factory em ABSConnector), que decide qual o banco de dados que vai usar e, se for DBProperties, usa OrdemResponsabilidadeChain de Chain para decidir em qual tabela vai gravar (FileChain e IdFiles)
+
 
 
 

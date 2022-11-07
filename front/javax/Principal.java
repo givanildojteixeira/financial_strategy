@@ -397,7 +397,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		lblfrenda.setText(o.QualificaBem("FundoRendaFixa"));
 		lblpoupan.setText(o.QualificaBem("Poupanca"));
 		Random random = new Random();
-		ColocaGrafico(panelGrBe, "Casa", random.nextInt(100),
+		ColocaGrafico(panelGrBe,"Variações Bens Patrimônio", "Casa", random.nextInt(100),
 				"Apto.", random.nextInt(100),
 				"Comercio", random.nextInt(100),
 				"Fazenda", random.nextInt(100));
@@ -448,7 +448,7 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 		}
 		//
 		Random random = new Random();
-		ColocaGrafico(panelGrAp, "Açoes", random.nextInt(100),
+		ColocaGrafico(panelGrAp,"Variações Aplicações", "Açoes", random.nextInt(100),
 				"F.Imobil", random.nextInt(100),
 				"F.R.Fixo", random.nextInt(100),
 				"Poupança", random.nextInt(100));
@@ -557,14 +557,14 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 
 	}
 
-	public void ColocaGrafico(JPanel p,
+	public void ColocaGrafico(JPanel p, String titulo,
 			String item1, int vItem1,
 			String item2, int vItem2,
 			String item3, int vItem3,
 			String item4, int vItem4) {
 		// cria painel para desenhar grafico
 		final Graficos desenhando = new Graficos();
-		desenhando.setTitulos(" ", " ",
+		desenhando.setTitulos(titulo, "titulo ",
 				"Variação Mercado");
 		desenhando.setParametros(vItem1, item1);
 		desenhando.setParametros(vItem2, item2);

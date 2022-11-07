@@ -5,6 +5,7 @@ import bancoDados.dbPropertiesFiles.FileConfig;
 import bancoDados.dbPropertiesFiles.FileMovimento;
 import bancoDados.dbPropertiesFiles.IdFiles;
 
+
 public class DBPropertiesConnector extends ABSConnector {
 
 	FileChain fileProperties;
