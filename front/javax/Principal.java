@@ -128,8 +128,6 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			// ops, é usuario novo, gravo os dados iniciais
 			o.gravaSaldoConta(o.saldoDaConta());
 			o.gravaLimiteConta(o.limiteDaConta());
-			// o.GravarDBValor(Global.USUARIO + "-s", o.saldoDaConta());
-			// o.GravarDBValor(Global.USUARIO + "-l", o.limiteDaConta());
 		}
 
 		setSize(1100, 600);

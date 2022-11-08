@@ -19,10 +19,9 @@ public class FileConfig extends FileChain {
 		arquivo = s.getArquivo();
 	}
 
-	//se caiu para esse arquivo, então
-	//acrescente a funcionalidade de codificação
+	// se caiu para esse arquivo, então
+	// acrescente a funcionalidade de codificação
 	private FileConfigDecorator fcd = new FileConfigDecorator();
-
 
 	@Override
 	public void createConnection() {
@@ -46,7 +45,7 @@ public class FileConfig extends FileChain {
 		try {
 			FileInputStream fis = new FileInputStream(arquivo);
 			prop.load(fis);
-			
+
 			valor = fcd.Codifica(valor);
 
 			prop.setProperty(chave, valor);
@@ -65,7 +64,8 @@ public class FileConfig extends FileChain {
 			prop.load(fis);
 			String s = prop.getProperty(chave);
 			fis.close();
-			s = fcd.Decodifica(s);
+			if (s != null)
+				s = fcd.Decodifica(s);
 			return s;
 
 		} catch (IOException e) {

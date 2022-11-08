@@ -26,3 +26,5 @@ GIVA-MOV-|D-Compra de Acoes - R$ 10.0
 GIVA-MOV-|D-Compra de Acoes - R$ 10.0
 GIVA-MOV-|D-Compra de Poupanca - R$ 100.0
 GIVA-MOV-|D-Compra de Poupanca - R$ 100.0
+GIVA-MOV-|D-Compra de Acoes - R$ 10.0
+GIVA-MOV-|D-Compra de Acoes - R$ 10.0
