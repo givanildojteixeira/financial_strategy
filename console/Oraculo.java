@@ -4,7 +4,7 @@ public interface Oraculo {
     //Auxiliar do Padrao Observer - O olho que tudo vê!
 
     public boolean preliminar();
-    public boolean dificuldade();
+    public void dificuldade();
     public boolean usoLimite();
     public boolean vencedor();
     public boolean perdedor();

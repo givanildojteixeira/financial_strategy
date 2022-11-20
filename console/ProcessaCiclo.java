@@ -1,17 +1,19 @@
 package console;
 
+import console.estrategia.Strategy;
 import dominio.Operacoes;
 import front.javax.FactoryMethodInterface;
 
 public class ProcessaCiclo extends Observer {
     Operacoes o = new Operacoes();
+    Strategy s = new Strategy(Global.GRAUDEDIFICULDADE);
 
     @Override
     public void ciclo() {
         // CREDITOS
         // salario
         o.gravaSaldoConta(o.saldoDaConta() + Global.SALARIOMENSAL);
-        
+
         if (preliminar())
             return;
         if (vencedor())
@@ -19,6 +21,7 @@ public class ProcessaCiclo extends Observer {
         if (perdedor())
             return;
         usoLimite();
+        dificuldade();
         
 
     }
@@ -33,9 +36,9 @@ public class ProcessaCiclo extends Observer {
     }
 
     @Override
-    public boolean dificuldade() {
-        // TODO Auto-generated method stub
-        return false;
+    public void dificuldade() {
+        System.out.println(s.calcularValorPerdido());
+        o.gravaSaldoConta(o.saldoDaConta() - s.calcularValorPerdido());
     }
 
     @Override

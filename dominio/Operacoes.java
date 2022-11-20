@@ -103,7 +103,8 @@ public class Operacoes {
 	}
 
 	public double limiteDaConta() {
-		return c.getConta().getLimite();
+		return getLimite();
+		// return c.getConta().getLimite();
 	}
 
 	/*

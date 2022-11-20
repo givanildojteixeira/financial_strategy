@@ -57,18 +57,12 @@ COMPORTAMENTAIS
 -   [ ] Iterator
 -   [ ] Mediador
 -   [ ] Memento
--   [ ] Observer
+-   [X] Observer - Fica escondido atras do Ciclo, observando com a ajuda do Oraculo varios acontecimentos dentro do programa e tomando açoes conforme orientado (Arquivos: Observer, Oraculo, ProcessaCiclo)
 -   [ ] State
--   [ ] Strategy
+-   [X] Strategy - Gerenciador do grau de dificuldade do jogo, inicialmente setado no Global como GrauDeDiculdade, e gerenciado pelo arquivo Strategy.java, que tem sua interface no arquivo GrauDeDiculdade, reduzindo o valor da conta corrente confirme a estrategia (Arquivos: Strategy, GrauDeDificuldade e demais arquivos na pasta estrategia)
 -   [ ] Template Method
 -   [ ] Visitor
 
-
-- Utilizar o Observer para monitorar o numero de jogadas até o ciclo
-- Utilizar o Observer para randomizar jogadas onde o jogador perde dinheiro
-
-
-Operaçoes.gravar manda o comando para o Connector(Abstract Factory em ABSConnector), que decide qual o banco de dados que vai usar e, se for DBProperties, usa OrdemResponsabilidadeChain de Chain para decidir em qual tabela vai gravar (FileChain e IdFiles)
 
 
 

@@ -19,6 +19,7 @@ public class Global {
   public static int jogadasPreliminares = 3;
   public static final double SALARIOMENSAL = 300;
   public static final double VALORVENCEDOR = 1000000;
+  public static final int GRAUDEDIFICULDADE = 3;
   public static String USUARIO = "";
   public static Boolean MSGOK;
   public static String IMOVEL;
