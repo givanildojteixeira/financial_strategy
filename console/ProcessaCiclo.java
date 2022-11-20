@@ -112,31 +112,31 @@ public class ProcessaCiclo extends Observer {
 
     @Override
     public void extraPorTempoJogando() {
-        // TODO Auto-generated method stub
+        // jogaor ganha bonus se ultrapassar um tempo jogando
 
     }
 
     @Override
     public void pegoAleatorioPeloImpostoDeRenda() {
-        // TODO Auto-generated method stub
+        // vai ser fiscalizado 
 
     }
 
     @Override
     public void melhorJogada() {
-        // TODO Auto-generated method stub
+        // jogada que mais deu rendimento
 
     }
 
     @Override
     public void piorJogada() {
-        // TODO Auto-generated method stub
+        // jogada com pior rendimento
 
     }
 
     @Override
     public void meritoInvestidor() {
-        // TODO Auto-generated method stub
+        // grande capacidade de investimento
 
     }
 

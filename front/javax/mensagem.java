@@ -2,7 +2,6 @@ package front.javax;
 
 import javax.swing.*;
 
-import console.Global;
 
 import java.awt.*;
 import java.awt.event.*;

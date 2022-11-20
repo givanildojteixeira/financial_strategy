@@ -60,7 +60,7 @@ COMPORTAMENTAIS
 -   [X] Observer - Fica escondido atras do Ciclo, observando com a ajuda do Oraculo varios acontecimentos dentro do programa e tomando açoes conforme orientado (Arquivos: Observer, Oraculo, ProcessaCiclo)
 -   [ ] State
 -   [X] Strategy - Gerenciador do grau de dificuldade do jogo, inicialmente setado no Global como GrauDeDiculdade, e gerenciado pelo arquivo Strategy.java, que tem sua interface no arquivo GrauDeDiculdade, reduzindo o valor da conta corrente confirme a estrategia (Arquivos: Strategy, GrauDeDificuldade e demais arquivos na pasta estrategia)
--   [ ] Template Method
+-   [X] Template Method - Usado para efetuar as operações de compra ou de venda dos bens e aplicações dando todo o suporte para execução das atividades (Arquivos: pasta operacaoTemplateMethod)
 -   [ ] Visitor
 
 

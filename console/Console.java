@@ -103,12 +103,12 @@ public class Console {
         o.CriarConta("Lucas", "Administrador");
 
         o.ListaContas();
-        System.out.println(o.depositar( 100, ""));
-        System.out.println(o.depositar( 10000, ""));
+        // System.out.println(o.depositar( 100, ""));
+        // System.out.println(o.depositar( 10000, ""));
         o.ListaContas();
-        o.sacar(40000, "");
+        // o.sacar(40000, "");
 
-        o.depositar( 30, "descricao");
+        // o.depositar( 30, "descricao");
         o.ListaContas();
 
         // o.transferir(1, 3, 50);

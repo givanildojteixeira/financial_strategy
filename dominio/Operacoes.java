@@ -10,6 +10,8 @@ import dominio.Investimentos.BensPrototype;
 import dominio.Products.ContaAdministrador;
 import dominio.Products.ContaCorrente;
 import dominio.Products.ContaPro;
+import dominio.operacaoTemplateMethod.OperacaoTemplate;
+import dominio.operacaoTemplateMethod.imovel;
 
 public class Operacoes {
 	Director c = new Director();
@@ -122,29 +124,18 @@ public class Operacoes {
 		GravarDBValor(Global.USUARIO + "-l", v, IdFiles.FileConfig);
 	}
 
-	public boolean depositar(double valor, String descricao) {
-		c.getConta().depositar(valor);
-		gravaMovimentacao("C", descricao, valor);
-		b.movimento.add(new Movimentacao(c.getConta().getNumero(), "C", descricao, valor));
-
-		// valor));
+	public boolean depositar(double valor) {
+		gravaSaldoConta(valor);
 		return true;
 	}
 
-	public boolean sacar(double valor, String descricao) {
-		// ContaProduct cliente = c.getConta(Global.USUARIO);
-		if (c.getConta().sacar(valor) == true) {
-			gravaMovimentacao("D", descricao, valor);
-			// b.movimento.add(new Movimentacao(c.getConta().getNumero(), "D", descricao,
-			// valor));
-			return true;
-		} else {
-			return false;
-		}
+	public boolean sacar(double valor) {
+		gravaSaldoConta(valor);
+		return true;
 	}
 
 	public void gravaMovimentacao(String debitoCredito, String descricao, double valor) {
-		b.movimento.add(new Movimentacao(c.getConta().getNumero(), debitoCredito, descricao, valor));
+		// b.movimento.add(new Movimentacao(c.getConta().getNumero(), debitoCredito, descricao, valor));
 		// GRAVA NO ARQUIVO
 		GravarDB(Global.USUARIO + "-MOV-", debitoCredito + "-" + descricao + " - R$ " + valor, IdFiles.FileMovimento);
 	}
@@ -328,10 +319,12 @@ public class Operacoes {
 		// tem saldo?
 		double valorDoBem = valorCompraBem(bem);
 		if (saldoDaConta() >= valorDoBem) {
-			sacar(valorDoBem, "Compra de " + bem);
-			gravaSaldoConta(saldoDaConta());
-			atualizaBensUsuario(bem);
-			gravaMovimentacao("D", "Compra de " + bem, valorDoBem);
+			OperacaoTemplate ot = new imovel();
+			ot.comprar(valorDoBem, bem);
+			// sacar(valorDoBem, "Compra de " + bem);
+			// gravaSaldoConta(saldoDaConta());
+			// atualizaBensUsuario(bem);
+			// gravaMovimentacao("D", "Compra de " + bem, valorDoBem);
 		} else {
 			return false;
 		}
