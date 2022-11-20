@@ -1,6 +1,7 @@
 package console;
 
 import console.estrategia.Strategy;
+import console.facade.SistemaFacade;
 import dominio.Operacoes;
 import front.javax.FactoryMethodInterface;
 
@@ -10,19 +11,41 @@ public class ProcessaCiclo extends Observer {
 
     @Override
     public void ciclo() {
-        // CREDITOS
+
+        // CREDITOS E DEBITOS
+        SistemaFacade fachada = new SistemaFacade();
+        double receitas = fachada.analiseReceitas();
+        double despesas = fachada.analiseDespesas();
+        o.gravaSaldoConta(o.saldoDaConta() + receitas);
+        o.gravaSaldoConta(o.saldoDaConta() - despesas);
+        System.out.println("Receitas " + receitas);
+        System.out.println("Despesas " + despesas);
+
         // salario
         o.gravaSaldoConta(o.saldoDaConta() + Global.SALARIOMENSAL);
 
+        // Oraculo
         if (preliminar())
             return;
         if (vencedor())
             return;
         if (perdedor())
             return;
+
+        // avisos
         usoLimite();
+
+        // aplica a dificuldade referente a analise do mercado atual
         dificuldade();
-        
+
+        // mostra o resultado na tela
+        // FactoryMethodInterface.getMensagem(
+        //     true,
+        //     "Novo Ciclo",
+        //     "Novo Período!",
+        //     "Seus Rendimentos foram R$ " + receitas + " E suas despesas foram R$ " + despesas,
+        //     "Você está no caminho certo! ",
+        //     "");
 
     }
 
@@ -37,7 +60,7 @@ public class ProcessaCiclo extends Observer {
 
     @Override
     public void dificuldade() {
-        System.out.println(s.calcularValorPerdido());
+        System.out.println("Valor Dificuldade " + s.calcularValorPerdido());
         o.gravaSaldoConta(o.saldoDaConta() - s.calcularValorPerdido());
     }
 
@@ -116,6 +139,5 @@ public class ProcessaCiclo extends Observer {
         // TODO Auto-generated method stub
 
     }
-
 
 }
