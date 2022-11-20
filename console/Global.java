@@ -14,8 +14,11 @@ package console;
 */
 public class Global {
 
-  public static final int TEMPOCICLO = 60;
   public static final String TITULO = "Financial Stategy";
+  public static final int TEMPOCICLO = 5;
+  public static int jogadasPreliminares = 3;
+  public static final double SALARIOMENSAL = 300;
+  public static final double VALORVENCEDOR = 1000000;
   public static String USUARIO = "";
   public static Boolean MSGOK;
   public static String IMOVEL;

@@ -3,6 +3,7 @@ package bancoDados.dbPropertiesFiles;
 public enum IdFiles {
     FileConfig("resources/config.properties"),
     FileMovimento("resources/movimento.txt");
+    
 
     private String idFiles;
 

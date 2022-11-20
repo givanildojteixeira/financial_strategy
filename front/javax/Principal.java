@@ -410,7 +410,9 @@ public class Principal extends JFrame implements ActionListener, FacInterface, M
 			corder.setOrderState(new CompraBens());
 			corder.doWork(true);
 			atualizaTelaPrincipal();
-			FactoryMethodInterface.getModel("Mensagem");
+			FactoryMethodInterface.getMensagem(true, "Compra de bens",
+			 "Parabéns", "Você acaba de adquirir um novo bem", 
+			 "Compra de uma " + nomedoBem, nomedoBem);
 		}
 
 		if (e.getSource() == vender) {

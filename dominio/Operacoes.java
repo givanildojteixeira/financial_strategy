@@ -4,6 +4,7 @@ import bancoDados.Connector;
 import bancoDados.dbPropertiesFiles.IdFiles;
 import console.Ferramentas;
 import console.Global;
+import console.ProcessaCiclo;
 import dominio.Investimentos.BensCache;
 import dominio.Investimentos.BensPrototype;
 import dominio.Products.ContaAdministrador;
@@ -60,8 +61,6 @@ public class Operacoes {
 				c.setContaBuilder(new ContaCorrente());
 		}
 		c.constructConta(cliente);
-		// System.out.println("Conta " + c.getConta().getNumero() + " Criada com
-		// sucesso!");
 	}
 
 	public String ListaContas() {
@@ -99,7 +98,8 @@ public class Operacoes {
 	// }
 
 	public double saldoDaConta() {
-		return c.getConta().getSaldo();
+		return getSaldo();
+		// return c.getConta().getSaldo();
 	}
 
 	public double limiteDaConta() {
@@ -111,12 +111,13 @@ public class Operacoes {
 	 */
 
 	public void gravaSaldoConta(double v) {
-		c.getConta().setSaldo(v);
+		// c.getConta().setSaldo(v);
+	
 		GravarDBValor(Global.USUARIO + "-s", v, IdFiles.FileConfig);
 	}
 
 	public void gravaLimiteConta(double v) {
-		c.getConta().setLimite(v);
+		// c.getConta().setLimite(v);
 		GravarDBValor(Global.USUARIO + "-l", v, IdFiles.FileConfig);
 	}
 
@@ -219,8 +220,9 @@ public class Operacoes {
 		 * contas Pro recebem um bonus
 		 * contas Adm nao recebem nada
 		 */
-		// soma o salário ao saldo
-		gravaSaldoConta(saldoDaConta() + 300);
+		ProcessaCiclo pr = new ProcessaCiclo();
+		pr.ciclo();
+
 
 	}
 

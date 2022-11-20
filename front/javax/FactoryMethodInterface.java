@@ -34,11 +34,16 @@ public class FactoryMethodInterface {
 				return new regra4();
 			case "Regra5":
 				return new regra5();
-			case "Mensagem":
-				return new mensagem();
 			default:
 				return new Abertura();
 		}
 
+	}
+
+	public static FacInterface getMensagem(boolean ok, String titulo, String msTitulo, String mensagem,
+			String comentario,
+			String nomeDoBemImagem) {
+
+		return new mensagem(ok, titulo, msTitulo, mensagem, comentario, nomeDoBemImagem);
 	}
 }

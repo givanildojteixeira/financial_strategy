@@ -44,7 +44,7 @@ CRIACIONAIS
 ESTRUTURAIS
 -   [ ] Adapter
 -   [ ] Facade
--   [X] Bridge   - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador (Arquivos usados: BridgeRelatorios +          VisualizadorDeRelatorios + GeradorDeRelatorios)
+-   [X] Bridge - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador (Arquivos usados: BridgeRelatorios + VisualizadorDeRelatorios + GeradorDeRelatorios)
 -   [x] Decorator - Usado para acrescentar uma codificação a informação que será lida ou gravada no arquivo FileConfig, para que ela nao seja gravada como texto puro podendo ser alterada manualmente. (Arquivos usados: Base64Decorator + FileConfigDecorator)
 -   [ ] Flyweight
 -   [ ] Composite
@@ -62,7 +62,6 @@ COMPORTAMENTAIS
 -   [ ] Strategy
 -   [ ] Template Method
 -   [ ] Visitor
-
 
 
 - Utilizar o Observer para monitorar o numero de jogadas até o ciclo
