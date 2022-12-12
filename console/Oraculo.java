@@ -14,5 +14,4 @@ public interface Oraculo {
     public void piorJogada();
     public void meritoInvestidor();
 
-
 }

@@ -1,5 +1,8 @@
 package console;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -7,6 +10,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 public class Ferramentas {
 	public String cMB(Double v) {
@@ -41,23 +46,46 @@ public class Ferramentas {
 			return ("");
 		}
 	}
-	public String mid(String str, int start, int len){
+
+	public String mid(String str, int start, int len) {
 		// Make sure start and len are within proper bounds
-		String r="";
-		start = start -1;
+		String r = "";
+		start = start - 1;
 		if (start < 0 || len < 0) {
 			return "";
 		}
-	
+
 		int iEnd = 0;
 		int iLen = str.length();
-	
+
 		if (start + len > iLen)
 			iEnd = iLen;
 		else
 			iEnd = start + len;
-	
-		r= str.substring(start,iEnd);
-			return r ;
+
+		r = str.substring(start, iEnd);
+		return r;
+	}
+
+	public void zip(String origem, String destino) throws IOException {
+		int data;
+		FileInputStream fis = new FileInputStream(origem);
+		FileOutputStream fos = new FileOutputStream(destino);
+		DeflaterOutputStream dos = new DeflaterOutputStream(fos);
+		while ((data = fis.read()) != -1)
+			dos.write(data);
+		fis.close();
+		dos.close();
+	}
+
+	public void unzip(String origem, String destino) throws IOException {
+		int data;
+		FileInputStream fis = new FileInputStream(origem);
+		FileOutputStream fos = new FileOutputStream(destino);
+		InflaterInputStream iis = new InflaterInputStream(fis);
+		while ((data = iis.read()) != -1)
+			fos.write(data);
+		fos.close();
+		iis.close();
 	}
 }

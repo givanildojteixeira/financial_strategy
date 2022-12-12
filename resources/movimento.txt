@@ -38,3 +38,13 @@ GIVA-MOV-|D-Compra de Comercio - R$ 3000.0
 GIVA-MOV-|D-Compra de Comercio - R$ 3000.0
 GIVA-MOV-|D-Compra de Fazenda - R$ 5000.0
 GIVA-MOV-|D-Aquisição patrimonio:Casa - R$ 1000.0
+GIVA-MOV-|D-Aquisição patrimonio:Casa - R$ 1000.0
+GIVA-MOV-|D-Aquisição patrimonio:Apartamento - R$ 2000.0
+GIVA-MOV-|D-Aquisição patrimonio:Apartamento - R$ 2000.0
+GIVA-MOV-|D-Aquisição patrimonio:Apartamento - R$ 2000.0
+GIVA-MOV-|D-Aquisição patrimonio:Fazenda - R$ 5000.0
+GIVA-MOV-|D-Aquisição patrimonio:Fazenda - R$ 5000.0
+GIVA-MOV-|D-Aquisição patrimonio:Fazenda - R$ 5000.0
+GIVA-MOV-|D-Aquisição patrimonio:Fazenda - R$ 5000.0
+GIVA-MOV-|D-Aquisição patrimonio:Casa - R$ 1000.0
+GIVA-MOV-|D-Aquisição patrimonio:Casa - R$ 1000.0

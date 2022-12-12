@@ -16,6 +16,7 @@ public class ProcessaCiclo extends Observer {
         SistemaFacade fachada = new SistemaFacade();
         double receitas = fachada.analiseReceitas();
         double despesas = fachada.analiseDespesas();
+        
         o.gravaSaldoConta(o.saldoDaConta() + receitas);
         o.gravaSaldoConta(o.saldoDaConta() - despesas);
         System.out.println("Receitas " + receitas);
@@ -139,5 +140,6 @@ public class ProcessaCiclo extends Observer {
         // grande capacidade de investimento
 
     }
+
 
 }

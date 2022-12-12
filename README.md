@@ -40,28 +40,23 @@ CRIACIONAIS
 -   [x] Protopype           - Utilizado para criação de Bens e Aplicações
 -   [x] Singleton           - Utilizado para criação de Variaveis Globais 
 
-
 ESTRUTURAIS
--   [ ] Adapter
--   [X] Facade - Trabalha junto com o ciclo, processando os valores de credito e de debito originarios do patrimonio, centraliza a varredura de bens e aplicações, retornando o valor de receita ou despesa.(Arquivos: pasta facade)
+-   X[X] Facade - Trabalha junto com o ciclo, processando os valores de credito e de debito originarios do patrimonio, centraliza a varredura de bens e aplicações, retornando o valor de receita ou despesa.(Arquivos: pasta facade)
 -   [X] Bridge - Para gerenciador de Relatorios, onde é possivel ver qualquer relatorio dentro de qualquer visualizador (Arquivos usados: BridgeRelatorios + VisualizadorDeRelatorios + GeradorDeRelatorios)
 -   [x] Decorator - Usado para acrescentar uma codificação a informação que será lida ou gravada no arquivo FileConfig, para que ela nao seja gravada como texto puro podendo ser alterada manualmente. (Arquivos usados: Base64Decorator + FileConfigDecorator)
--   [ ] Flyweight
--   [ ] Composite
--   [ ] Proxy
+-   [ ] Composite - emerson
 
 COMPORTAMENTAIS
--   [X] Chain of Responsability - Recebe o pedido de gravação pelo DBProperties e faz uma OrdemResponsabilidade para gravar no arquivo correto com base na lista em IdFiles (Arquivos usados: FileChain, IdFiles, FileConfig e FileMovimento)
--   [ ] Command
--   [ ] Interpreter
--   [ ] Iterator
--   [ ] Mediador
--   [ ] Memento
+-   X[X] Chain of Responsability - Recebe o pedido de gravação pelo DBProperties e faz uma OrdemResponsabilidade para gravar no arquivo correto com base na lista em IdFiles (Arquivos usados: FileChain, IdFiles, FileConfig e FileMovimento)
+-   [ ] Interpreter - Emerson
+-   [ ] Memento -Reginaldo
 -   [X] Observer - Fica escondido atras do Ciclo, observando com a ajuda do Oraculo varios acontecimentos dentro do programa e tomando açoes conforme orientado (Arquivos: Observer, Oraculo, ProcessaCiclo)
--   [ ] State
+-   [ ] State - emerson
 -   [X] Strategy - Gerenciador do grau de dificuldade do jogo, inicialmente setado no Global como GrauDeDiculdade, e gerenciado pelo arquivo Strategy.java, que tem sua interface no arquivo GrauDeDiculdade, reduzindo o valor da conta corrente confirme a estrategia (Arquivos: Strategy, GrauDeDificuldade e demais arquivos na pasta estrategia)
 -   [X] Template Method - Usado para efetuar as operações de compra ou de venda dos bens e aplicações dando todo o suporte para execução das atividades (Arquivos: pasta operacaoTemplateMethod)
--   [ ] Visitor
+-   [ ] Visitor  - ligia
+
+
 
 
 
